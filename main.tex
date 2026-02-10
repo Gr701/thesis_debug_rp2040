@@ -23,7 +23,7 @@
 % Thesis type: master (default)/bachelor
 % Output type: online (default, 2.5 cm margin)
 %              print (4.5 cm left margin for bound theses)
-\documentclass[english, online, cse, master]{dithesis}
+\documentclass[english, online, cse, bachelor]{dithesis}
 
 %% Copyright of a work is with the creator/author of the work regardless of
 %% whether the copyright mark is explicitly in the work or not. You may, if you
@@ -44,14 +44,14 @@
 \title{TODO: Bachelor's and Diploma Thesis Guide}
 \otsikko{TODO: Kandidaatintyön ja diplomityön teko-ohjeet}
 
-\firstname{Program}
-\lastname{Committee}
 
 % Names of other authors can be added here
-%\firstnametwo{}
-%\lastnametwo{}
-%\firstnamethree{}
-%\lastnamethree{}
+\firstname{Mark}
+\lastname{Suvorov}
+\firstnametwo{Ahmad}
+\lastnametwo{Prabowo}
+\firstnamethree{Cat}
+\lastnamethree{Vo}
 % Remove or comment the extra names if you do not need them
 
 % Abstracts are stored in the PDF metadata.
@@ -139,21 +139,21 @@
   \label{introduction} %Create a label for referencing purposes (\charef{.})
   \input{Chapters/introduction} %Input the contents of the chapter from a separate file
     
-\chapter{General outline for thesis projects}
+\chapter{Background information}
   \label{relatedwork}
   \input{Chapters/relatedwork}
     
-\chapter{Thesis writing instructions}
-  \label{implementation}
-  \input{Chapters/implementation}
-    
-\chapter{The literary structure of a thesis}
-  \label{experiments}
-  \input{Chapters/experiments}
-    
-\chapter{Summary}
-  \label{summary}
-  \input{Chapters/summary}
+%\chapter{Thesis writing instructions}
+%  \label{implementation}
+%  \input{Chapters/implementation}
+%    
+%\chapter{The literary structure of a thesis}
+%  \label{experiments}
+%  \input{Chapters/experiments}
+%    
+%\chapter{Summary}
+%  \label{summary}
+%  \input{Chapters/summary}
     
 \printbibliography[heading=bibnumbered, title=\mybibname]
 
