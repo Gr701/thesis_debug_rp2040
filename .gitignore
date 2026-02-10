@@ -5,3 +5,9 @@
 *.xmpi
 main.pdf
 report.xml
+*.xmpdata
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+
