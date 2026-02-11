@@ -16,19 +16,33 @@ The approach described above is implemented for C and C++ with GNU Debugger, fur
 
 The debugging process applied to the embedded devices is different than the one used for the programs running on the host's CPU. That's because the debugger needs to control not the process on the host, but on the processing unit of the microcontroller. Below we will take a look at how the control commands are forwarded from the host environment to the CPU on the microcontroller, in other words, how the debugging pipeline is implemented for the embedded devices and in particular Pico-series microcontrollers.
 
+  \begin{figure}[ht]
+    \begin{center}
+      \includegraphics*[width=\textwidth]{debug\_flush\_process}
+    \end{center}
+    \caption{The flush process during debugging.}
+    \label{fig:debug_flush_process}
+  \end{figure}
+
 \subsection{GDB}
+
+
+
 \subsection{OpenOCD}
+
+
+
 \subsection{Probe}
+
+
+
 \subsection{SWD}
+
+
+
 \subsection{JTAG}
 
-    \begin{figure}[ht]
-      \begin{center}
-        \includegraphics*[width=\textwidth]{debug\_flush\_process}
-      \end{center}
-      \caption{The flush process during debugging.}
-      \label{fig:debug_flush_process}
-    \end{figure}
+
 
 \section{Options and approaches}
 
@@ -49,22 +63,21 @@ Talk about working principles and dependencies for each option.
 
 \subsection{JTAG/SWD Segger debugger}
 
-\section{TKJHat and the Computer Systems course}
+    * im tired boss
+    xd
 
+\section{TKJHAT and the Computer Systems course}
 
-
-
-
-The process starts with specifying the topic of the thesis and applying for its formal approval by the degree programme committee head. You need to define the topic together with the commissioner and the supervisors (see the next section). The topic, commissioner, and supervisors are specified in the topic application form that is used to apply the approval of the topic. The list below presents the general thesis process, with emphasis on the administrative issues and supervision:
+The TKJHAT is an open-source, open-hardware HAT platform designed by members of the Faculty of Information Technology and Electrical Engineering and implemeted to support IoT and embedded systems education in two courses, 521286A Computer Systems and 521287A Introduction to Computer Systems that correspond to 8 and 5 ECTS, respectively. The platform itself was developed on top
+of the Raspberry Pi Pico W and FreeRTOS with a diverse and multifaceted array of peripheral devices built in that enables particpating students to experiment and derive solutions to complex problems presented during course. The peripherals present in the TKJHAT are connected in two different ways; via GPIO pins and $\text{I}^2\text{C}$. Peripherals connected via $\text{I}^2\text{C}$ include the following:
 
 \begin{enumerate}
     \setlength\itemsep{0pt}
     \setlength\parskip{0pt}
-    \item approval for the topic,
-    \item writing the thesis (preferably at the same time as carrying out the research),
-    \item delivering the thesis and applying for the degree,
-    \item evaluation and grading, and
-    \item granting the degree.
+    \item Ambient light sensor (VEML6030)
+    \item Temperature \& Humidity sensor (HDC2021)
+    \item IMU (ICM-42670, accelerator and gyroscope)
+    \item OLED display (SSD1306)
 \end{enumerate}
 
 The second stage is the most laborious part, which includes writing the thesis and performing the actual work, for example, designing, building and testing a piece of software. When the thesis is ready, it is reviewed by the supervisors, modified by you if necessary, and then delivered to the Laturi system. The next step is to apply for the degree certificate and to perform the other tasks that are required from graduating students. The supervisors download the thesis from the archive and evaluate it. The degree programme committee approves the grading in its meeting and the faculty grants the degree. The thesis is transferred to the university archive and published according to the publicity level you defined when uploading the thesis to Laturi. The graduation ceremony ends your M.Sc. studies. The process is explained in more detail in the rest of this document and on the degree programme web pages~\cite{mscstudies}.
