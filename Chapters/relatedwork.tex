@@ -28,23 +28,41 @@ comprehensive and deep insight into the inner working of a program when it's run
     \caption{GDB internal structure[2].}
     \label{fig:gdb_structure}
 \end{figure}
-GDB's internal structure is described to contain two sides: the Symbol Side and the Target Side with the Interface level 
-sitting on top to be the bridge between the developer and the program. 
-This Interface level includes a Command Line Interface (CLI) for direct user interaction and a Machine Interface (MI) designed to 
-used by Integrated Development Environments (IDEs) like Visual Studio Code (see Figure 1).
+GDB's internal structure is described as containing two sides: the Symbol Side and the Target Side, with the Interface level 
+sitting on top to act as the bridge between the developer and the program. 
+This Interface level includes a Command Line Interface (CLI) for direct user interaction and a Machine Interface (MI) designed to
+be used by Integrated Development Environments (IDEs) like Visual Studio Code (see Figure 1).
 
 The Symbol Side of \texttt{GDB} is built upon the Binary File Descriptor (\texttt{BFD}) library. 
 \texttt{BFD}'s role is to act as the abstraction layer for a wide array of executable formats 
 including \texttt{a.out}, \texttt{COFF} (Common Object File Format), and \texttt{ELF} 
 (Executable and Linkable Format), allowing \texttt{GDB} to access raw symbolic data blocks 
-regardless of the host's Operating System (\texttt{OS}) or the program's binary and object 
-files' formats [2]. After \texttt{BFD} has navigated the executable, the task is then 
+regardless of the host's Operating System (\texttt{OS}) or the target's specific binary format [2]. 
+After \texttt{BFD} has navigated the executable, the task is then 
 handed to the two levels of reader functions within \texttt{GDB}. These functions bridge 
 the basic symbols used for name-to-address mapping with detailed metadata from 
 formats such as \texttt{DWARF} or \texttt{stabs}, providing the high-level context of 
 variable types, source line numbers, and processor register mappings necessary for debugging [2].
 
-The Target Side of \texttt{GDB} is in charge of the handling the program execution and raw data.
+The Target Side of \texttt{GDB} is responsible for handling the dynamic execution of the program and raw data. 
+To do that, GDB utilises a special class called Target Vector, a structure composed of function pointers with 
+the purposes ranging from reading and writing of memory and registers, to setting parameters for 
+handling shared libraries [2]. The usage of the vectors is managed by a Target Stack, which sorts the vectors into 
+prioritised groups to ensure vectors of running processes are always used while having the vectors of executables as fallbacks.
+
+To tailor to the needs of a universal and portable debugger, \texttt{gdbarch} objects were introduced to encapsulate 
+the architectural specifications, ranging from 
+registers maps and the sizes of the different kinds of data to 
+the calling convention and trap exceptions. This approach helps GDB's core logic stay independent of the underlying
+hardware architecture, which allows GDB to be used on a diverse range of processors [2].
+
+Sitting at the heart of GDB is the execution control unit, which has evolved from a 
+monolithic loop called \texttt{wait\_for\_inferior} into a modular Event-Driven State Machine. This change has allowed GDB to be
+capable of managing complex state changes, trap instructions, and asynchronous debugging. 
+
+To facilitate debugging on a secondary device, GDB makes use of the Remote Serial Protocol (RSP), which is 
+a lightweight, packet-based communication standard. By using RSP, GDB can connect and communicate with the target 
+hardware through either on-chip stubs or external translation programs known as sprites[2].
 % GDB's internal structure can be 
 %  [1] https://sourceware.org/gdb/current/onlinedocs/gdb.pdf \\
 %  [2] https://aosabook.org/en/v2/gdb.html
