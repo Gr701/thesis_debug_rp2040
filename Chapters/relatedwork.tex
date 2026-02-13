@@ -38,6 +38,7 @@ The approach described above is implemented for C and C++ with GNU Debugger, fur
 
 \subsection{JTAG}
 
+    * rough ready; need more research to confirm some facts
 
 
 \section{Options and approaches - software}
@@ -46,7 +47,10 @@ Talk about working principles and dependencies for each option.
 
 \subsection{Docker Containerisation}
 
+    * need info
+
 \subsection{Virtual Machine}
+    * WIP
 
 \section{Options and approaches - hardware}
 
@@ -70,10 +74,12 @@ Talk about working principles and dependencies for each option.
     * im tired boss
     xd
 
-\section{TKJHAT and the Computer Systems course}
+\section{Computer Systems and the TKJHAT}
 
-The TKJHAT is an open-source, open-hardware Hardware Attached on Top (HAT) platform designed by members of the Faculty of Information Technology and Electrical Engineering and implemeted to support IoT and embedded systems education in two courses, 521286A Computer Systems and 521287A Introduction to Computer Systems that correspond to 8 and 5 ECTS, respectively. The platform itself was developed on top
-of the Raspberry Pi Pico W and FreeRTOS with a diverse and multifaceted array of peripheral devices built in that enables particpating students to experiment and derive solutions to complex problems presented during course. The peripherals present in the TKJHAT are connected in two different ways; via GPIO pins and $\text{I}^2\text{C}$. Peripherals connected via $\text{I}^2\text{C}$ include the following:
+521287A Introduction to Computer Systems is a degree level course that explains how a computer works as a complete stack, moving from high-level programs down to hardware in a conceptual and beginner-friendly way. It is a foundational course that is essential for prospective students wishing to advance to 521286A Computer Systems where the concepts are delved at a much deeper and more technical level, focusing on how these mechanisms are implemented and how they affect performance and functionality. While separate courses, they share the same course content at first as the two are implemented simultaneously, with students of both courses using the TKJHAT to experiment and derive solutions to complex problems presented to them during the implementation time of the courses.
+
+The TKJHAT itself is an open-source, open-hardware, Hardware Attached on Top (HAT) platform designed by members of the Faculty of Information Technology and Electrical Engineering to support IoT and embedded systems education in the University of Oulu through the aforementioned courses. The HAT platform was developed on top
+of the Raspberry Pi Pico W and FreeRTOS with a diverse and multifaceted array of peripheral devices built in to extend the Pi from a general-purpose computer into a real-world measurement and control system that students can use effectively. The peripherals present in the TKJHAT reflect its educational design philosophy and are interfaced in two different ways: via General-Purpose Input/Output (GPIO) pins and Inter-Integrated Circuit ($\text{I}^2\text{C}$) buses. Peripherals connected via $\text{I}^2\text{C}$ include the following:
 
 \begin{enumerate}
     \setlength\itemsep{0pt}
@@ -84,7 +90,7 @@ of the Raspberry Pi Pico W and FreeRTOS with a diverse and multifaceted array of
     \item Organic light emitting diode - OLED display (SSD1306)
 \end{enumerate}
 
-The second stage is the most laborious part, which includes writing the thesis and performing the actual work, for example, designing, building and testing a piece of software. When the thesis is ready, it is reviewed by the supervisors, modified by you if necessary, and then delivered to the Laturi system. The next step is to apply for the degree certificate and to perform the other tasks that are required from graduating students. The supervisors download the thesis from the archive and evaluate it. The degree programme committee approves the grading in its meeting and the faculty grants the degree. The thesis is transferred to the university archive and published according to the publicity level you defined when uploading the thesis to Laturi. The graduation ceremony ends your M.Sc. studies. The process is explained in more detail in the rest of this document and on the degree programme web pages~\cite{mscstudies}.
+Peripherals connected via GPIO pins include two light emitting diodes (LED), one red LED and one red-green-blue (RGB) led, a buzzer and a Pulse Density Modulation (PDM) Micro-Electro-Mechanical Systems (MEMS) microphone. The peripherals present that need simple, fast, one-bit control use GPIO, while peripherals that are complex sensors or multi-function chips use I²C so they can exchange structured data efficiently over a shared bus. Ideally, with the two mechanisms shown, students will also come to understand the advantages and disadvantages in both protocols and will have the knowledge to know when to choose each in real system design.
 
 \section{Approval of the topic}
 
