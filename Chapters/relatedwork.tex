@@ -10,20 +10,44 @@ The debugging is the integral part of the software development process. Its purp
 
 The debugging process applied to the embedded devices is different, than the one used for the programs running on the host's CPU. That is because the debugger needs to control and therefore reach the processing unit of the microcontroller. Below we will take a look at how the control commands are forwarded from the host environment to the CPU on the microcontroller. In other words, how the debugging pipeline is implemented for the embedded devices and, in particular, Pico family microcontrollers.
 
-  \begin{figure}[ht]
-    \begin{center}
-      \includegraphics*[width=\textwidth]{debug\_flush\_process}
-    \end{center}
-    \caption{The flush process during debugging.}
-    \label{fig:debug_flush_process}
-  \end{figure}
+  
 
 \subsection{GDB}
 
-The approach described above is implemented for C and C++ with GNU Debugger, further reffered as GDB. The first step in the procedure is to compile the program with the "-g" flag, which will make the compiler to generate besides the executable, a lookup table for the debugger, which maps the binary code instructions to the variables and the line numbers of the original code. Then the program is started as a child process of the debugger, so it can control the interrupts. 
+The approach described above is implemented for C and C++ with GNU Debugger, further reffered as GDB. The first step in the procedure is 
+to compile the program with the "-g" flag, which will make the compiler to generate besides the executable, a lookup table for 
+the debugger, which maps the binary code instructions to the variables and the line numbers of the original code. 
+Then the program is started as a child process of the debugger, so it can control the interrupts. 
 
+For general C or C++ projects, the process of automated debugging is typically centered around the GNU Debugger (GDB). The main purpose of GDB is to provide the developer with a
+comprehensive and deep insight into the inner working of a program when it's running or to provide clues of what happened that led to the program's crash [1].
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gdb_structure.png} % Add your extension here
+    \caption{GDB internal structure[2].}
+    \label{fig:gdb_structure}
+\end{figure}
+GDB's internal structure is described to contain two sides: the Symbol Side and the Target Side with the Interface level 
+sitting on top to be the bridge between the developer and the program. 
+This Interface level includes a Command Line Interface (CLI) for direct user interaction and a Machine Interface (MI) designed to 
+used by Integrated Development Environments (IDEs) like Visual Studio Code (see Figure 1).
 
+The Symbol Side of \texttt{GDB} is built upon the Binary File Descriptor (\texttt{BFD}) library. 
+\texttt{BFD}'s role is to act as the abstraction layer for a wide array of executable formats 
+including \texttt{a.out}, \texttt{COFF} (Common Object File Format), and \texttt{ELF} 
+(Executable and Linkable Format), allowing \texttt{GDB} to access raw symbolic data blocks 
+regardless of the host's Operating System (\texttt{OS}) or the program's binary and object 
+files' formats [2]. After \texttt{BFD} has navigated the executable, the task is then 
+handed to the two levels of reader functions within \texttt{GDB}. These functions bridge 
+the basic symbols used for name-to-address mapping with detailed metadata from 
+formats such as \texttt{DWARF} or \texttt{stabs}, providing the high-level context of 
+variable types, source line numbers, and processor register mappings necessary for debugging [2].
+
+The Target Side of \texttt{GDB} is in charge of the handling the program execution and raw data.
+% GDB's internal structure can be 
+%  [1] https://sourceware.org/gdb/current/onlinedocs/gdb.pdf \\
+%  [2] https://aosabook.org/en/v2/gdb.html
 \subsection{OpenOCD}
 
 
@@ -34,7 +58,13 @@ The approach described above is implemented for C and C++ with GNU Debugger, fur
 
 \subsection{SWD}
 
-
+\begin{figure}[ht]
+    \begin{center}
+      \includegraphics*[width=\textwidth]{debug\_flush\_process}
+    \end{center}
+    \caption{The flush process during debugging.}
+    \label{fig:debug_flush_process}
+\end{figure}
 
 \subsection{JTAG}
 
