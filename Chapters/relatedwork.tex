@@ -54,6 +54,17 @@ The Target Side of \texttt{GDB} is in charge of the handling the program executi
 
 \subsection{Probe}
 
+The next component in the pipeline is the probe. It serves as the translator between the digital commands - USB packets from OpenOCD (or another GDB server), and the electrical signals, which are then sent over the wires connected to the pins of the debugging port of the microcontroller board. There are protocols to standardize this communication, and one of them is CMSIS-DAP - an open standard described by Arm \cite{cmsis_dap}. It stands for the Common Microcontroller Software Interface Standard - Debug Access Port. Additionally to the protocol, it provides the template implementation of the concept \cite{cmsis_dap}. Its illustraion can be seen in \figref{fig:cmsis_dap_interface}. DAPLink is another implementaion of CMSIS-DAP. Moreover, there are proprietary protocols and their implementations, such as ST-Link by STMicroelectronics and J-Link by Segger \cite{zephyr_probes}.
+
+The hardware part of the probe can be implemented in two major ways. It can be either a separate board, or a second microcontroller integrated into the board, which is being debugged \cite{zephyr_probes}. To communicate with the host machine, the probe is connected to it via USB, IP network, or other means \cite{zephyr_probes}. 
+
+\begin{figure}[ht]
+    \begin{center}
+        \includegraphics*[width=\textwidth]{cmsis\_dap\_interface.png}
+    \end{center}
+    \caption{CMSIS-DAP interface \cite{cmsis_dap}.}
+    \label{fig:cmsis_dap_interface}
+\end{figure}
 
 
 \subsection{SWD}
