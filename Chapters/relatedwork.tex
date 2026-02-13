@@ -8,9 +8,7 @@ The Pico family is the group of Raspberry Pi microcontroller boards. It started 
 
 The debugging is the integral part of the software development process. Its purpose is to ensure proper functioning and the performance of the software. There are different aproaches to debugging, with the simplest one being just printing the program values to the output terminal. In this thesis however, we will focus on the automated debugging with the extended control over the program's execution, which allows the programmer to use the break points, step one line at a time through the code, and monitor the values of the registers, variables, and expressions throughout the process.
 
-The approach described above is implemented for C and C++ with GNU Debugger, further reffered as GDB. The first step in the procedure is to compile the program with "-g" flag, which besides the executable, will generate the lookup table for the debugger, mapping binary code instructions to the variables and the line numbers of the original code. Then the program is started as a child process of the debugger, so it can control the interrupts. 
-
-The debugging process applied to the embedded devices is different than the one used for the programs running on the host's CPU. That's because the debugger needs to control not the process on the host, but on the processing unit of the microcontroller. Below we will take a look at how the control commands are forwarded from the host environment to the CPU on the microcontroller, in other words, how the debugging pipeline is implemented for the embedded devices and in particular Pico-series microcontrollers.
+The debugging process applied to the embedded devices is different, than the one used for the programs running on the host's CPU. That is because the debugger needs to control and therefore reach the processing unit of the microcontroller. Below we will take a look at how the control commands are forwarded from the host environment to the CPU on the microcontroller. In other words, how the debugging pipeline is implemented for the embedded devices and, in particular, Pico family microcontrollers.
 
   \begin{figure}[ht]
     \begin{center}
@@ -21,6 +19,8 @@ The debugging process applied to the embedded devices is different than the one 
   \end{figure}
 
 \subsection{GDB}
+
+The approach described above is implemented for C and C++ with GNU Debugger, further reffered as GDB. The first step in the procedure is to compile the program with the "-g" flag, which will make the compiler to generate besides the executable, a lookup table for the debugger, which maps the binary code instructions to the variables and the line numbers of the original code. Then the program is started as a child process of the debugger, so it can control the interrupts. 
 
 
 
