@@ -89,24 +89,6 @@ The hardware part of the probe can be implemented in two major ways. It can be e
 
 Arm Debug Interface (ADI) architecture provides an access to the debug components inside the SoC (System on a Chip) \cite{adi}. It consists of Access Ports (APs), connected directly to the resources like CPU debug registers, memory system, ROM table, and more; and Debug Port (DP), which serves as a facade of the system and has a physical connection to the debug probe \cite{adi}. DP provides a one standard way to access the information from different APs \cite{adi}. \figref{fig:adiv5_implementation} illustrates the ADI version 5 with the block diagram. There are several protocols defining the implementation of the debug port. We will go through two of them: SWD and JTAG in the following sections.
 
-\subsection{SWD}
-
-Serial Wire Debug is the protocol defining the . Serial Wire - Debug Port (SW-DP) is one type of the physical connection to the probe the Debug Port may have. It is a serial, packet-based interface implemeneted with two pins \cite{adi}. 
-
-
-The SW-DP is a two-pin serial interface that uses a packet-based protocol to read or write registers.
-The protocol requires the following steps for communication between the host, which is the
-debugger, and the target, which is the ADI:
-1. A host-to-target packet request, which includes whether the required access is to a DP register
-(DPACC) or to an AP register (APACC), and a two-bit register address.
-2. A target-to-host acknowledge response.
-3. A data transfer phase, if necessary. This phase can be target-to-host or host-to-target,
-depending on the request that is made in the first phase.
-
-Pins purpose and turnaround
-
-Frame structure
-
 \begin{figure}[ht]
     \begin{center}
         \includegraphics*[width=\textwidth]{adiv5\_implementation.png}
@@ -114,6 +96,13 @@ Frame structure
     \caption{ADIv5 implementation \cite{adi}.}
     \label{fig:adiv5_implementation}
 \end{figure}
+
+\subsection{SWD}
+
+Serial Wire Debug (SWD) is the protocol used for Serial Wire - Debug Port (SW-DP) implementation of the DP. It is a serial, packet-based interface utilizing two pins: one for the bidirectional data connection, and the other one is for the clock, to synchronize the communication \cite{adi}. The operation on the wire has three main phases: packet request from the probe, acknowledgement response from the ADI, and the optional data transfer, either from the probe to ADI or vice versa \cite{adi}. Since all the communication happens on one line, there are turnaround periods between the phases, when one party has released the data line already, but the other party didn't take the control over it yet. It prevents the conflicts and during these periods the state of the line is undefined \cite{adi}.
+
+The frame sent over the data line from the probe during the request phase of SWD is 8 bits long and has the information about the address of the register being accessed and whether it is a read or a write operation \cite{adi}. The acknowledgement frame is only 3 bits long: one per OK, WAIT, and FAULT statuses, while the data frame is 32 bits long \cite{adi}.
+
 
 \begin{figure}[ht]
     \begin{center}
