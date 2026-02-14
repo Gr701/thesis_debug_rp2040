@@ -87,19 +87,25 @@ The hardware part of the probe can be implemented in two major ways. It can be e
 
 \subsection{ADI}
 
-Arm Debug Interface (ADI) architecture provides an access to the debug components inside the SoC (System on a Chip). It consists of Access Ports (APs), connected directly to the resources like CPU debug registers, memory system, ROM table, and more; and Debug Port (DP), which serves as a facade of the system and has a physical connection to the debug probe \cite{adi}. DP provides a one standard way to access the information from different APs \cite{adi}. \figref{fig:adiv5_implementation} illustrates the ADI version 5 with the block diagram. 
+Arm Debug Interface (ADI) architecture provides an access to the debug components inside the SoC (System on a Chip) \cite{adi}. It consists of Access Ports (APs), connected directly to the resources like CPU debug registers, memory system, ROM table, and more; and Debug Port (DP), which serves as a facade of the system and has a physical connection to the debug probe \cite{adi}. DP provides a one standard way to access the information from different APs \cite{adi}. \figref{fig:adiv5_implementation} illustrates the ADI version 5 with the block diagram. There are several protocols defining the implementation of the debug port. We will go through two of them: SWD and JTAG in the following sections.
 
 \subsection{SWD}
 
-Serial Wire Debug (SWD) is the protocol defined by Arm as a part of the Arm Debug Interface (ADI) architecture \cite{adi}. 
+Serial Wire Debug is the protocol defining the . Serial Wire - Debug Port (SW-DP) is one type of the physical connection to the probe the Debug Port may have. It is a serial, packet-based interface implemeneted with two pins \cite{adi}. 
 
-SW-DP is one type of the physical connection to the debugger.   
+
+The SW-DP is a two-pin serial interface that uses a packet-based protocol to read or write registers.
+The protocol requires the following steps for communication between the host, which is the
+debugger, and the target, which is the ADI:
+1. A host-to-target packet request, which includes whether the required access is to a DP register
+(DPACC) or to an AP register (APACC), and a two-bit register address.
+2. A target-to-host acknowledge response.
+3. A data transfer phase, if necessary. This phase can be target-to-host or host-to-target,
+depending on the request that is made in the first phase.
 
 Pins purpose and turnaround
 
 Frame structure
-
-AP/DP 
 
 \begin{figure}[ht]
     \begin{center}
