@@ -8,7 +8,7 @@ The Pico family is the group of Raspberry Pi microcontroller boards. It started 
 
 The debugging is the integral part of the software development process. Its purpose is to ensure proper functioning and the performance of the software. There are different aproaches to debugging, with the simplest one being just printing the program values to the output terminal. In this thesis however, we will focus on the automated debugging with the extended control over the program's execution, which allows the programmer to use the break points, step one line at a time through the code, and monitor the values of the registers, variables, and expressions throughout the process.
 
-The debugging process applied to the embedded devices is different, than the one used for the programs running on the host's CPU. That is because the debugger needs to control and therefore reach the processing unit of the microcontroller. Below we will take a look at how the control commands are forwarded from the host environment to the CPU on the microcontroller. In other words, how the debugging pipeline is implemented for the embedded devices and, in particular, Pico family microcontrollers.
+The debugging process applied to the embedded devices is different, than the one used for the programs running on the host's CPU. That is because the debugger needs to control and therefore reach the processing unit of the microcontroller. Below we will take a look at how the control commands are forwarded from the host environment to the CPU on the microcontroller. In other words, how the debugging pipeline is implemented for the embedded devices and, in particular, Pico family microcontrollers and and Arm processors.
 
   
 
@@ -85,7 +85,29 @@ The hardware part of the probe can be implemented in two major ways. It can be e
 \end{figure}
 
 
+\subsection{ADI}
+
+Arm Debug Interface (ADI) architecture provides an access to the debug components inside the SoC (System on a Chip). It consists of Access Ports (APs), connected directly to the resources like CPU debug registers, memory system, ROM table, and more; and Debug Port (DP), which serves as a facade of the system and has a physical connection to the debug probe \cite{adi}. DP provides a one standard way to access the information from different APs \cite{adi}. \reffig{fig:adiv5_implementation} illustrates the ADI version 5 with the block diagram. 
+
 \subsection{SWD}
+
+Serial Wire Debug (SWD) is the protocol defined by Arm as a part of the Arm Debug Interface (ADI) architecture \cite{adi}. 
+
+SW-DP is one type of the physical connection to the debugger.   
+
+Pins purpose and turnaround
+
+Frame structure
+
+AP/DP 
+
+\begin{figure}[ht]
+    \begin{center}
+        \includegraphics*[width=\textwidth]{adiv5\_implementation.png}
+    \end{center}
+    \caption{ADIv5 implementation \cite{adi}.}
+    \label{fig:adiv5_implementation}
+\end{figure}
 
 \begin{figure}[ht]
     \begin{center}
@@ -133,7 +155,7 @@ Talk about working principles and dependencies for each option.
     * im tired boss
     xd
 
-\section{Computer Systems and the TKJHAT}
+\section{Computer Systems course and the TKJHAT}
 
 521287A Introduction to Computer Systems is a degree level course that explains how a computer works as a complete stack, moving from high-level programs down to hardware in a conceptual and beginner-friendly way. It is a foundational course that is essential for prospective students wishing to advance to 521286A Computer Systems where the concepts are delved at a much deeper and more technical level, focusing on how these mechanisms are implemented and how they affect performance and functionality. While separate courses, they share the same course content at first as the two are implemented simultaneously, with students of both courses using the TKJHAT to experiment and derive solutions to complex problems presented to them during the implementation time of the courses.
 
