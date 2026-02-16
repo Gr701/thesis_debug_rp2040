@@ -183,14 +183,21 @@ The data is shifted through the device serially via the DBGTDI and DBGTDO pins, 
 
 \section{Options and approaches - software}
 
-Talk about working principles and dependencies for each option.
+The development of embedded systems requires a complete toolchain environment including compilers, debuggers, software development kits, and integrated development environments. Providing a consistent, reproducible development environment is essential to minimise setup difficulties and reduces time spent troubleshooting configuration issues.
+
+Two primary approaches exist for delivering such environments: containerisation through Docker and full virtualization through Virtual Machines. Each approach offers distinct advantages and disadvantages in terms of resource usage, hardware access, portability, and ease of deployment. The following subsections examine both approaches in detail, discussing their working principles, required dependencies, and the specific challenges encountered.
 
 \subsection{Docker Containerisation}
 
-    * need info
+Docker provides an isolated, lightweight environment for running the debugging software by leveraging Linux kernel features such as \texttt{namespaces} and \texttt{cgroups} to create containers. The containerisation approach packages the complete debugging toolchain, including OpenOCD, GDB, the Pico SDK, and Code-Server IDE, into a single reproducible image that can be deployed consistently across different host systems.
+
+Docker containers share the host operating system's kernel, making them significantly lighter than full virtual machines. The container runs as an isolated process with its own file system, network stack, and process tree, while still executing directly on the host's hardware. For embedded debugging, USB devices must be explicitly passed through to the container using the \texttt{--privileged} flag and volume mounting (\texttt{-v /dev/bus/usb:/dev/bus/usb}), which grants the container direct access to the host's USB bus.
 
 \subsection{Virtual Machine}
-    * WIP
+
+A Virtual Machine (VM) provides a complete, isolated operating system environment running on top of a hypervisor. Unlike Docker containers that share the host kernel, a VM includes its own kernel and can run a different operating system than the host. For the debugging platform, a Debian-based VM with full desktop environment can be configured using open-source tools used to build and manage VM environments, like Vagrant and VirtualBox.
+
+VirtualBox creates a hardware-virtualized environment where the guest OS (Debian) runs with its own virtual CPU, memory, storage, and devices. The hypervisor intercepts hardware access requests from the guest and either emulates them in software or passes them through to real hardware. USB devices can be attached to the VM through VirtualBox's USB controller which provides native hardware access.
 
 \section{Options and approaches - hardware}
 
