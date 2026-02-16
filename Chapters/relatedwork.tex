@@ -114,8 +114,11 @@ The frame sent over the data line from the probe during the request phase of SWD
 
 \subsection{JTAG}
 
-    * rough ready; need more research to confirm some facts
+Joint Test Action Group (JTAG) is the protocol used for JTAG Debug Port (JTAG-DP) implementation of the DP. The protocol utilizes four mandatory pins: DBGTDI (Debug Test Data In) for input data, DBGTDO (Debug Test Data Out) for output data, TCK (Test Clock) for synchronization, and DBGTMS (Debug Test Mode Select) for controlling state transitions \cite{adi}. An optional fifth pin, DBGTRSTn, provides asynchronous reset functionality \cite{adi}.
 
+When a DAP is implemented with JTAG-DP, the wire-level interface provides access through two scan chains: the APACC (Access Port Access) scan chain for accessing debug resources in the system being debugged, and the DPACC (Debug Port Access) scan chain for accessing information internal to the DAP itself \cite{adi}. All state transitions occur synchronously with the clock, eliminating the need for turnaround periods as in SWD, since separate pins are used for input and output data \cite{adi}.
+
+The data is shifted through the device serially via the DBGTDI and DBGTDO pins, with the DBGTAPSM providing two main paths: one for accessing the instruction register (IR) and another for accessing data registers (DR) \cite{adi}. The IR scan chain selects and controls the available scan chains, while the DR scan chain carries the actual data being transferred \cite{adi}.
 
 \section{Options and approaches - software}
 
@@ -141,32 +144,61 @@ Talk about working principles and dependencies for each option.
     * last commit 4 years ago, not maintained \\
     * https://community.platformio.org/t/debugging-raspberry-pi-pico/30946 (discussion)
 
-\subsection{Black Magic probe}
+\subsection{Black Magic Probe}
 
-    * to use black magic you need more mana
+The Black Magic Probe (BMP) is part of an open-source debugging solution, Black Magic Debug (BMD), that implements a GDB server directly in the probe hardware, eliminating the need for intermediate software like OpenOCD. It connects to the host computer via a standard USB interface, appearing as a CDC-ACM device (virtual serial port), which requires no special drivers on Linux or macOS \cite{blackmagic}. Unlike traditional debugging setups where a separate GDB server runs on the host machine, the BMP embeds the GDB Remote Serial Protocol server in its firmware, allowing direct connection from GDB to the probe's serial port \cite{blackmagic}.
 
-\subsection{JTAG/SWD Segger debugger}
+The probe supports both JTAG and SWD protocols for connecting to ARM Cortex-M and Cortex-A based microcontrollers. When connected to a target device, the BMP provides full debugging functionality including hardware-assisted breakpoints (up to 6), watchpoints (up to 4 read, write, or access), memory and register examination, and flash memory programming \cite{blackmagic}. The firmware runs on dedicated Black Magic Probe hardware or can be flashed onto compatible devices such as ST-Link adapters \cite{blackmagic}.
 
-    * im tired boss
-    xd
+The debugging workflow with Black Magic Probe is simplified compared to traditional setups \cite{blackmagic}. After connecting the probe to the host computer, GDB connects directly to the probe's serial port using the \texttt{target extended-remote} command \cite{blackmagic}. The probe automatically handles target detection through commands like \texttt{monitor swdp\_scan}, which identifies connected microcontrollers and reports their type and voltage \cite{blackmagic}. Once attached to a target, all standard GDB commands can be used to control program execution, examine state, and modify memory \cite{blackmagic}. The probe also includes a secondary USB-to-serial adapter, enabling simultaneous debugging and serial communication with the target device \cite{blackmagic}.
+
+\subsection{JTAG/SWD J-Link Segger Probe}
+
+J-Link is a family of debug probes developed by SEGGER Microcontroller GmbH that support both JTAG and SWD protocols for debugging ARM-based microcontrollers and other architectures \cite{jlink}. J-Link probes contain dedicated hardware with a built-in 32-bit RISC CPU that handles the protocol conversion and communication with the target device which discards the need for a separate GDB server running on the host computer \cite{jlink}.
+
+J-Link probes support advanced debugging features including Real Time Transfer (RTT) for bidirectional communication with the running application, adaptive clocking that automatically adjusts to the target's clock speed, and Serial Wire Output (SWO) for instruction trace and event logging \cite{jlink}. Higher-end models support unlimited flash breakpoints, allowing developers to set as many breakpoints as needed in flash memory without being limited by the number of hardware breakpoint units available in the target processor \cite{jlink}. The probes also support multi-core debugging, where multiple debugger instances can access different cores in a JTAG scan chain simultaneously using a single J-Link probe \cite{jlink}.
 
 \section{Computer Systems course and the TKJHAT}
 
 521287A Introduction to Computer Systems is a degree level course that explains how a computer works as a complete stack, moving from high-level programs down to hardware in a conceptual and beginner-friendly way. It is a foundational course that is essential for prospective students wishing to advance to 521286A Computer Systems where the concepts are delved at a much deeper and more technical level, focusing on how these mechanisms are implemented and how they affect performance and functionality. While separate courses, they share the same course content at first as the two are implemented simultaneously, with students of both courses using the TKJHAT to experiment and derive solutions to complex problems presented to them during the implementation time of the courses.
 
-The TKJHAT itself is an open-source, open-hardware, Hardware Attached on Top (HAT) platform designed by members of the Faculty of Information Technology and Electrical Engineering to support IoT and embedded systems education in the University of Oulu through the aforementioned courses. The HAT platform was developed on top
-of the Raspberry Pi Pico W and FreeRTOS with a diverse and multifaceted array of peripheral devices built in to extend the Pi from a general-purpose computer into a real-world measurement and control system that students can use effectively. The peripherals present in the TKJHAT reflect its educational design philosophy and are interfaced in two different ways: via General-Purpose Input/Output (GPIO) pins and Inter-Integrated Circuit ($\text{I}^2\text{C}$) buses. Peripherals connected via $\text{I}^2\text{C}$ include the following:
+The TKJHAT itself is an open-source, open-hardware, Hardware Attached on Top (HAT) platform designed by members of the Faculty of Information Technology and Electrical Engineering to support IoT and embedded systems education in the University of Oulu through the aforementioned courses. The development of this platform was driven by specific requirements identified through systematic evaluation: affordability (under 60€ per student), customizability to meet evolving teaching needs, easy integration into multiple courses, alignment with industry standards, Real-Time Operating System (RTOS) support, and wireless connectivity capabilities \cite{kelhala:2024}. 
 
-\begin{enumerate}
+The platform selection process involved a comprehensive systematic review of scientific literature and discourse analysis, evaluating alternatives including the nRF52-DK, STM Nucleo-64 family, Raspberry Pi Pico W, and Micro:bit v2 \cite{bscstudies}. The Raspberry Pi Pico W was ultimately selected as the base platform due to its optimal balance of price, functionality, strong community support, extensive input/output connections, wireless connectivity options, and compatibility with open-source development tools \cite{bscstudies,kelhala:2024}. 
+
+The HAT platform was developed on top
+of the Raspberry Pi Pico W and FreeRTOS with a diverse and multifaceted array of peripheral devices built in to extend the Pi from a general-purpose computer into a real-world measurement and control system that students can use effectively. FreeRTOS was selected as the RTOS after evaluating several alternatives including Zephyr RTOS, MbedOS, Kiel, and Riot \cite{kelhala:2024}. The selection criteria prioritized: (1) intuitive functions that expose hardware aspects without excessive abstraction, (2) thorough and easily accessible documentation, (3) ease of IDE installation and configuration with straightforward debugging capabilities, and (4) support for basic OS concepts such as tasks, mutexes, and I/O operations \cite{kelhala:2024}.
+
+FreeRTOS emerged as the preferred choice due to its simplest API, excellent documentation with detailed usage examples, widespread industry adoption (equipping students with directly applicable skills), and straightforward development flow requiring only minimal files to get started \cite{kelhala:2024}. Applications can be easily built using C and CMake, with support extending to a wide set of architectures and microcontrollers. This stands in stark contrast with alternatives like Zephyr, which, while powerful, provides more complex tooling and documentation better suited for students with existing embedded development experience \cite{kelhala:2024}.
+
+The development environment utilizes Visual Studio Code with the Cortex-Debug extension and CMake, providing full integration with raw Pico SDK and FreeRTOS APIs while offering simple building, flashing, and debugging capabilities through an intuitive user interface \cite{kelhala:2024}. This setup was chosen over PlatformIO, which, despite offering a complete toolchain, limited access to raw SDK functionality due to its Arduino core foundation \cite{kelhala:2024}.
+
+The peripherals present in the TKJHAT reflect its educational design philosophy of balancing simplicity for beginners while maintaining access to low-level hardware functionality for advanced learners \cite{kelhala:2024} and are interfaced in two different ways: via General-Purpose Input/Output (GPIO) pins and Inter-Integrated Circuit ($\text{I}^2\text{C}$) buses.
+
+Peripherals connected via $\text{I}^2\text{C}$ include:
+
+\begin{itemize}
     \setlength\itemsep{0pt}
     \setlength\parskip{0pt}
     \item Ambient light sensor (VEML6030)
     \item Temperature \& Humidity sensor (HDC2021)
     \item Inertial measurement unit - IMU (ICM-42670, accelerator and gyroscope)
     \item Organic light emitting diode - OLED display (SSD1306)
-\end{enumerate}
+\end{itemize}
 
-Peripherals connected via GPIO pins include two light emitting diodes (LED), one red LED and one red-green-blue (RGB) led, a buzzer and a Pulse Density Modulation (PDM) Micro-Electro-Mechanical Systems (MEMS) microphone. The peripherals present that need simple, fast, one-bit control use GPIO, while peripherals that are complex sensors or multi-function chips use I²C so they can exchange structured data efficiently over a shared bus. Ideally, with the two mechanisms shown, students will also come to understand the advantages and disadvantages in both protocols and will have the knowledge to know when to choose each in real system design.
+Peripherals connected via GPIO pins include:
+
+\begin{itemize}
+    \setlength\itemsep{0pt}
+    \setlength\parskip{0pt}
+    \item Two light emitting diodes - LEDs: one red LED (1206 2.1V) and one red-green-blue - RGB LED (CLV1A-FKB-CK1VW1DE1BB7C3C3)
+    \item A buzzer (PKM13EPYH4000-A0)
+    \item A Pulse Density Modulation - PDM, Micro-Electro-Mechanical Systems - MEMS microphone (ICS-41350)
+\end{itemize} 
+
+The peripherals present that need simple, fast, one-bit control use GPIO, while peripherals that are complex sensors or multi-function chips use I²C so they can exchange structured data efficiently over a shared bus. Ideally, with the two mechanisms shown, students will also come to understand the advantages and disadvantages in both protocols and will have the knowledge to know when to choose each in real system design. This hands-on approach aligns with established teaching approaches, as physical interaction with hardware enables students to develop deeper understanding of hardware limitations and system constraints than simulation alone could provide.
+
+The platform supports progressive learning through its Software Development Kit (SDK), which provides standardized APIs with functions to set up sensors and retrieve data \cite{kelhala:2024}. While component datasheets are heavily utilized, the SDK can be configured to either expose or hide hardware complexity, allowing instructors to adapt the platform to different expertise levels as the course progresses \cite{kelhala:2024}. Students can choose between simplified functions for basic operations or direct register access for learning low-level functionality \cite{kelhala:2024}.
 
 \section{Approval of the topic}
 
