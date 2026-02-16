@@ -137,7 +137,40 @@ Talk about working principles and dependencies for each option.
 
 \subsection{Second Pico}
 \subsection{off-the-shelf debugger module from RP}
-\subsection{second core debugger (STM32)}
+
+\subsection{STM32?}
+
+\subsection{second core debugger}
+
+RP2040 chip has two Arm cores and provides an ability to control the SWD interface pins of both Core 0 and Core 1 from inside the chip \cite{raspberry_rp2040}. It means that we can manipulate the debug process of one core with the software running on the second core. Therefore, this approach eliminates the need for the external hardware. Its implementation involves a dedicated register - DBGFORCE, in the SYSCFG block of registers, and it has 8 bits - 4 bits per core, to control the debugging \cite{raspberry_rp2040}. The bits include:
+
+\begin{itemize}
+    \setlength\itemsep{0pt}
+    \setlength\parskip{0pt}
+    \item PROC\_ATTACH - to connect the DP of the core to syscfg control instead of the external SWD,
+    \item PROC\_SWCLCK - to directly drive the clock,
+    \item PROC\_SWDI - to drive the input on the SWDIO pin, and
+    \item PROC\_SWDO - to observe the output on the SWDIO pin \cite{raspberry_rp2040}.
+\end{itemize}
+
+\begin{figure}[ht]
+    \begin{center}
+      \includegraphics*[width=\textwidth]{rp2040\_debug.png}
+    \end{center}
+    \caption{RP2040 debug topology \cite{raspberry_rp2040}.}
+    \label{fig:rp2040_debug}
+\end{figure}
+
+RP2350 chip has a more complicated debug topology depicted in \figref{fig:rp2350_debug}, however, it also has the option for the internal probe bit-bang alike RP2040 \cite{raspberry_rp2350}. Besides that, there is a shortcut to access the APs directly through the memory addresses, which they are maped to. This is called a self-hosted debug, and is suggested as a faster and cleaner way, in cases other than a debug probe running on one core to debug another \cite{raspberry_rp2350}. The disadvantage of this method is the relience on the system bus to control the debug process, which can lead to deadlocks \cite{raspberry_rp2350}. SWD uses its own hardware independent of the cores and so aviods the deadlocks.
+
+\begin{figure}[ht]
+    \begin{center}
+      \includegraphics*[width=\textwidth]{rp2350\_debug.png}
+    \end{center}
+    \caption{RP2350 debug topology \cite{raspberry_rp2350}.}
+    \label{fig:rp2350_debug}
+\end{figure}
+
 \subsection{Faster probe forum}
 
     * git - https://github.com/essele/pico\_debug \\
