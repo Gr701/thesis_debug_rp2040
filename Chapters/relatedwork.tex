@@ -14,66 +14,30 @@ The debugging process applied to the embedded devices is different, than the one
 
 \subsection{GDB}
 
-For general C or C++ projects, the process of automated debugging is typically centered around the 
-GNU Debugger (GDB). The main purpose of GDB is to provide the developer with a
-comprehensive and deep insight into the inner working of a program when it's running or to provide clues of what happened that led to the program's crash [1].
+For general C or C++ projects, the process of automated debugging is typically centered around the GNU Debugger (GDB). The main purpose of GDB is to provide the developer with acomprehensive and deep insight into the inner working of a program when it's running or to provide clues of what happened that led to the program's crash [1].
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{gdb_structure.png} % Add your extension here
+    \includegraphics[width=0.4\textwidth]{gdb_structure.png} % Add your extension here
     \caption{GDB internal structure[2].}
     \label{fig:gdb_structure}
 \end{figure}
 
-GDB's internal structure is described as containing two sides: the Symbol Side and the Target Side, with the Interface level 
-sitting on top to act as the bridge between the developer and the program. This Interface level includes a Command Line Interface (CLI) for direct user interaction and a Machine Interface (MI) designed to
-be used by Integrated Development Environments (IDEs), such as Visual Studio Code (see Figure 1).
+GDB's internal structure is described as containing two sides: the Symbol Side and the Target Side, with the Interface level sitting on top to act as the bridge between the developer and the program. This Interface level includes a Command Line Interface (CLI) for direct user interaction and a Machine Interface (MI) designed to be used by Integrated Development Environments (IDEs), such as Visual Studio Code (see Figure 1).
 
-The Symbol Side of \texttt{GDB} is built upon the Binary File Descriptor (\texttt{BFD}) library. 
-\texttt{BFD}'s role is to act as the abstraction layer for a wide array of executable formats 
-including \texttt{a.out}, \texttt{COFF} (Common Object File Format), and \texttt{ELF} 
-(Executable and Linkable Format), allowing \texttt{GDB} to access raw symbolic data blocks 
-regardless of the host's Operating System (\texttt{OS}) or the target's specific binary format [2]. 
-After \texttt{BFD} has navigated the executable, the task is then 
-handed to the two levels of reader functions within \texttt{GDB}. These functions bridge 
-the basic symbols used for name-to-address mapping with detailed metadata from 
-formats such as \texttt{DWARF} or \texttt{stabs}, providing the high-level context of 
-variable types, source line numbers, and processor register mappings necessary for debugging [2].
+The Symbol Side of \texttt{GDB} is built upon the Binary File Descriptor (\texttt{BFD}) library. \texttt{BFD}'s role is to act as the abstraction layer for a wide array of executable formats including \texttt{a.out}, \texttt{COFF} (Common Object File Format), and \texttt{ELF} (Executable and Linkable Format), allowing \texttt{GDB} to access raw symbolic data blocks regardless of the host's Operating System (\texttt{OS}) or the target's specific binary format [2]. After \texttt{BFD} has navigated the executable, the task is then handed to the two levels of reader functions within \texttt{GDB}. These functions bridge the basic symbols used for name-to-address mapping with detailed metadata from formats such as \texttt{DWARF} or \texttt{stabs}, providing the high-level context of variable types, source line numbers, and processor register mappings necessary for debugging [2].
 
-The Target Side of \texttt{GDB} is responsible for handling the dynamic execution of the program and raw data. 
-To do that, GDB utilises a special class called Target Vector, a structure composed of function pointers with 
-the purposes ranging from reading and writing of memory and registers, to setting parameters for 
-handling shared libraries [2]. The usage of the vectors is managed by a Target Stack, which sorts the vectors into 
-prioritised groups to ensure vectors of running processes are always used while having the vectors of executables as fallbacks.
+The Target Side of \texttt{GDB} is responsible for handling the dynamic execution of the program and raw data. To do that, GDB utilises a special class called Target Vector, a structure composed of function pointers with the purposes ranging from reading and writing of memory and registers, to setting parameters for handling shared libraries [2]. The usage of the vectors is managed by a Target Stack, which sorts the vectors into prioritised groups to ensure vectors of running processes are always used while having the vectors of executables as fallbacks.
 
-To tailor to the needs of a universal and portable debugger, \texttt{gdbarch} objects were introduced to encapsulate 
-the architectural specifications, ranging from 
-registers maps and the sizes of the different kinds of data to 
-the calling convention and trap exceptions. This approach helps GDB's core logic stay independent of the underlying
-hardware architecture, which allows GDB to be used on a diverse range of processors [2].
+To tailor to the needs of a universal and portable debugger, \texttt{gdbarch} objects were introduced to encapsulate the architectural specifications, ranging from registers maps and the sizes of the different kinds of data to the calling convention and trap exceptions. This approach helps GDB's core logic stay independent of the underlyinghardware architecture, which allows GDB to be used on a diverse range of processors [2].
 
-Sitting at the heart of GDB is the execution control unit, which has evolved from a 
-monolithic loop called \texttt{wait\_for\_inferior} into a modular Event-Driven State Machine. This change has allowed GDB to be
-capable of managing complex state changes, trap instructions, and asynchronous debugging. 
+Sitting at the heart of GDB is the execution control unit, which has evolved from a monolithic loop called \texttt{wait\_for\_inferior} into a modular Event-Driven State Machine.This change has allowed GDB to becapable of managing complex state changes, trap instructions, and asynchronous debugging. 
 
-To facilitate debugging on a secondary device, GDB makes use of the Remote Serial Protocol (RSP), which is 
-a lightweight, packet-based communication standard. By using RSP, GDB can connect and communicate with the target 
-hardware through either on-chip stubs or external translation programs known as sprites[2].
+To facilitate debugging on a secondary device, GDB makes use of the Remote Serial Protocol (RSP), which is a lightweight, packet-based communication standard. By using RSP, GDB can connect and communicate with the target hardware through either on-chip stubs or external translation programs known as sprites[2].
 
-The debugging with GDB begins by compiling the program with the "-g" flag, which 
-will generate, besides the executable, a \texttt{DWARF} table for 
-the debugger. With the generated table, the developer can control 
-the program's execution through defined breakpoints and stepping. Bugs can also be 
-isolated by analysing the program state and backtraces [1].
+The debugging with GDB begins by compiling the program with the "-g" flag, which will generate, besides the executable, a \texttt{DWARF} table for the debugger. With the generated table, the developer can control the program's execution through defined breakpoints and stepping. Bugs can also be isolated by analysing the program state and backtraces [1].
 
-In the scope of this thesis, a more specialised setup is required to cross-debug from a host
-device to the Raspberry Pi Pico. Toolchains such as \texttt{arm-none-eabi-gdb} 
-for the \texttt{RP2040} or \texttt{riscv64-unknown-elf-gdb} for the \texttt{RP2350} are needed to
-because they contain the specific \texttt{gdbarch} modules 
-necessary to interpret the registers and instruction sets of the target 
-microcontrollers. Combining with OpenOCD, which serves as a 
-specialized GDB server, this setup translates \texttt{RSP} packets into physical 
-debug signals, allowing the developer to control the remote hardware as a local process [3].
+In the scope of this thesis, a more specialised setup is required to cross-debug from a host device to the Raspberry Pi Pico. Toolchains such as \texttt{arm-none-eabi-gdb} for the \texttt{RP2040} or \texttt{riscv64-unknown-elf-gdb} for the \texttt{RP2350} are needed tobecause they contain the specific \texttt{gdbarch} modules necessary to interpret the registers and instruction sets of the target microcontrollers. Combining with OpenOCD, which serves as a specialized GDB server, this setup translates \texttt{RSP} packets into physical debug signals, allowing the developer to control the remote hardware as a local process [3].
 
 % GDB's internal structure can be 
 %  [1] https://sourceware.org/gdb/current/onlinedocs/gdb.pdf \\
@@ -81,42 +45,22 @@ debug signals, allowing the developer to control the remote hardware as a local 
 %  [3] https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf
 \subsection{OpenOCD}
 
-Originating as a diploma thesis work of Hubert Hogl and Dominic Rath, OpenOCD was created to bridge
- the gap between the cross-compiled GDB and the JTAG adaptor [6][4]. OpenOCD is implemented as 
-a server program that provides \texttt{GDB RSP} network socket on default port 3333 and a Telnet network socket on 
-default port 4444 for manual interactive hardware control [4]. It is also capable of utilising configuration files with target-specific 
-configuration commands to access the target processor over one of several JTAG hardware interfaces, while
-maintaining log data [4].
+Originating as a diploma thesis work of Hubert Hogl and Dominic Rath, OpenOCD was created to bridge the gap between the cross-compiled GDB and the JTAG adaptor [6][4]. OpenOCD is implemented as a server program that provides \texttt{GDB RSP} network socket on default port 3333 and a Telnet network socket on default port 4444 for manual interactive hardware control [4]. It isalso capable of utilising configuration files with target-specific configuration commands to accessthe target processor over one of several JTAG hardware interfaces, whilemaintaining log data [4].
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{openocd_env.png} % Add your extension here
+    \includegraphics[width=0.4\textwidth]{openocd_env.png} % Add your extension here
     \caption{OpenOCD environment[4].}
     \label{fig:openocd_env}
 \end{figure}
 
-As illustrated in Figure \ref{fig:openocd_env}, a critical part of
-OpenOCD is the "monitor" command connection between the internal GDB server and the Telnet server, which 
-included an internal command interpreter. This internal bridge allows developers to use any command 
-that is available to a human user at the Telnet prompt, such as manual chip resets 
-or flash bank configurations, without requiring a separate network connection [4].
+As illustrated in Figure \ref{fig:openocd_env}, a critical part of OpenOCD is the "monitor" command connection between the internal GDB server and the Telnet server, which included an internal command interpreter. This internal bridge allows developers to use any command that is available to a human userat the Telnet prompt, such as manual chip resets or flash bank configurations, without requiring a separate network connection [4].
 
-The internal logic of OpenOCD serves as a protocol translator. OpenOCD takes software commands from GDB/Telnet and
-translates them into binary bitstreams understandable by the targeted silicon. Translation and calculation of checksums
-for data integrity is all handled by the internal \texttt{main()} execution routine that serves as the system's scheduler [4].
+The internal logic of OpenOCD serves as a protocol translator. OpenOCD takes software commands from GDB/Telnet and translates theminto binary bitstreams understandable by the targeted silicon. Translation and calculation of checksums for data integrity is all handled by the internal \texttt{main()} execution routine that serves as the system's scheduler [4].
 
-The most integral module of the \texttt{main()} execution routine is the Target Module, which is described as the most complex component of 
-the system's architecture. This module incorporates machine-level logics of supported target processors, including their register sets, 
-memory map, and reset behaviours. The module determines the steps necessary to carry out a request, such as halting,
-stepping or accessing peripheral registers [4].
+The most integral module of the \texttt{main()} execution routine is the Target Module, which is described as the most complex component of the system's architecture. This module incorporates machine-level logics of supported target processors, including their register sets, memory map, and reset behaviours. The module determines the steps necessary to carry out a request, such as halting,stepping or accessing peripheral registers [4].
 
-Once the Target Module has determined the instructions, they are passed to the 
-interface layer, which historically required raw bit-banging to manually 
-toggle the physical pins of a \texttt{JTAG} probe, it has evolved to support the 
-modern CMSIS-DAP protocol (see 2.2.3) [4][6]. Ultimately, the interface layer 
-is the final stage of the software translation pipeline, responsible for 
-converting the Target Module's logical instructions into the specific hardware-level 
-commands and protocol-compliant data required to communicate with the target's physical debug port [4].
+Once the Target Module has determined the instructions, they are passed to the interface layer, which historically required raw bit-banging to manually toggle the physical pins of a \texttt{JTAG} probe, it has evolved to support the modern CMSIS-DAP protocol (see 2.2.3) [4][6]. Ultimately, the interface layer is the final stage of the software translation pipeline, responsible for converting the Target Module's logical instructions into the specific hardware-level commands and protocol-compliant data required to communicate with the target's physical debug port [4].
 
 % [4] https://tha.de/~hhoegl/home/es2/openocd/oocd-2006.pdf
 % [5] https://openocd.org/doc-release/doxygen/oocd.html
@@ -124,18 +68,9 @@ commands and protocol-compliant data required to communicate with the target's p
 
 \subsection{Probe}
 
-The next component in the pipeline is the probe. It serves as the translator between the digital commands - USB packets from 
-OpenOCD (or another GDB server), and the electrical signals, which are then sent over the wires connected to the 
-pins of the debugging port of the microcontroller board. There are protocols to standardize this 
-communication, and one of them is CMSIS-DAP - an open standard described by Arm \cite{cmsis_dap}. It stands for 
-the Common Microcontroller Software Interface Standard - Debug Access Port. Additionally to the protocol, 
-it provides the template implementation of the concept \cite{cmsis_dap}. Its illustraion can be seen 
-in \figref{fig:cmsis_dap_interface}. DAPLink is another implementaion of CMSIS-DAP. Moreover, there are proprietary protocols
- and their implementations, such as ST-Link by STMicroelectronics and J-Link by Segger \cite{zephyr_probes}.
+The next component in the pipeline is the probe. It serves as the translator between the digital commands - USB packets from OpenOCD (or another GDB server), and the electrical signals, which are then sent over the wires connected to the pins of the debugging port of the microcontroller board. There are protocols to standardize this communication, and one of them is CMSIS-DAP - an open standard described by Arm \cite{cmsis_dap}. It stands for the Common Microcontroller Software Interface Standard - Debug Access Port. Additionally to the protocol, it provides the template implementation of the concept \cite{cmsis_dap}. Its illustraion can be seen in \figref{fig:cmsis_dap_interface}. DAPLink is another implementaion of CMSIS-DAP. Moreover, there are proprietary protocols and their implementations, such as ST-Link by STMicroelectronics and J-Link by Segger \cite{zephyr_probes}.
 
-The hardware part of the probe can be implemented in two major ways. It can be either a separate board, or 
-a second microcontroller integrated into the board, which is being debugged \cite{zephyr_probes}. To communicate 
-with the host machine, the probe is connected to it via USB, IP network, or other means \cite{zephyr_probes}. 
+The hardware part of the probe can be implemented in two major ways. It can be either a separate board, or a second microcontroller integrated into the board, which is being debugged \cite{zephyr_probes}. To communicate with the host machine, the probe is connected to it via USB, IP network, or other means \cite{zephyr_probes}. 
 
 \begin{figure}[ht]
     \begin{center}
