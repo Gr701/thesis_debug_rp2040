@@ -1,5 +1,6 @@
 ## CSE/BME/BA thesis
 
+# Link to Container/VM: https://github.com/CenderVN/BachelorThesis_PiPicoDebugger
 This LaTeX -template is for BSc and MSc theses of the CSE, BME and BA degree
 programmes at the ITEE faculty of the University of Oulu.
 
