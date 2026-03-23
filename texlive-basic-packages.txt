@@ -23,6 +23,10 @@ titlecaps             # Capitalizes titles (e.g., sections); niche but functiona
 titlesec              # Provides control over section title formatting; useful for custom layouts.
 tocloft               # Customizes ToC/LoF/LoT layout; powerful but can be complex.
 xstring               # String manipulation utilities for macro authors; still useful.
+tcolorbox
+pgf
+environ
+etoolbox
 
 # collection-latex-recommended
 caption		      # Customising captions in floating environments
