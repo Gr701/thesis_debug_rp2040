@@ -143,8 +143,44 @@ VirtualBox creates a hardware-virtualized environment where the guest OS (Debian
 
 Talk about working principles and dependencies for each option.
 
-\subsection{Second Pico}
-\subsection{off-the-shelf debugger module from RP}
+\subsection{Second Pico and off-the-shelf debugger module from Raspberry Pi}
+
+Raspberry Pi Ltd officially supports two primary hardware-based approaches for Raspberry Pi Pico series debugging: using another Pico-series board as a debugger or using the purpose-built Raspberry Pi Debug Probe.
+
+At the center of both approaches lies the officially supported firmware \texttt{debugprobe} \cite{pico_getting_started}. This firmware transforms the device into a composite USB peripheral by utilizing the TinyUSB stack to expose two interfaces to the host machine, which are the Communication Device Class (CDC) endpoint used as a USB-to-UART bridge for serial monitoring, and the transfer endpoint using the ARM CMSIS-DAP protocol for debugging \cite{debugprobe_repo}. \texttt{debugprobe} ultilizes the RP2040/RP2350's Programmable I/O (PIO) state machines to drive the Serial Wire Debug (SWD) signals with precise timing \cite{debugprobe_repo}. The probe device's RP2040/RP2350 chip translates incoming CMSIS-DAP USB packets into instructions for the PIO, creating a hardware-accelerated architecture with high efficiency, deterministic debugging with minimal CPU overhead.
+
+To turn a Pi Pico device into a debug probe, a specialised setup is required \cite{pico_getting_started}. Firstly, the second Pi Pico has to be loaded with the chip-appropriate \texttt{debugprobe} binary, which can be done through a bootloader \cite{pico_getting_started}. After that, physical connections need to be established between the probe and the targeted Pi Pico
+according to the configuration below \cite{pico_getting_started}:
+
+
+
+\begin{tcolorbox}[
+    colback=gray!5,     
+    colframe=gray!75,   
+    title=Picoprobe Wiring Configuration, 
+    fonttitle=\bfseries,
+    arc=0mm             
+]
+\begin{itemize}
+    \item \textbf{Pico A (Debugger) GND} $\rightarrow$ \textbf{Pico B (Target) GND}
+    \item \textbf{Pico A GP2} $\rightarrow$ \textbf{Pico B SWCLK}
+    \item \textbf{Pico A GP3} $\rightarrow$ \textbf{Pico B SWDIO}
+    \item \textbf{Pico A GP4 (UART1 TX)} $\rightarrow$ \textbf{Pico B GP1 (UART0 RX)}
+    \item \textbf{Pico A GP5 (UART1 RX)} $\rightarrow$ \textbf{Pico B GP0 (UART0 TX)}
+\end{itemize}
+\end{tcolorbox}
+
+To make the connecting process more consumer-friendly, the official Raspberry Pi Debug Probe offers an alternative that runs the exact same \texttt{debugprobe} firmware on an identical RP2040 architecture \cite{debugprobe_docs}. It eliminates the needs of breadboard for the GPIO pins by enclosing the hardware in a plastic case and utilising 3-pin JST-SH connectors for both SWD and UART \cite{debug_connector_spec}. This provides a plug-and-play debugging process, significantly reducing wiring complexity.
+
+\begin{figure}[ht]
+    \begin{center}
+      \includegraphics*[width=\textwidth]{debugprobe}
+    \end{center}
+    \caption{the official Raspberry Pi Debug Probe \cite{debugprobe_docs}.}
+    \label{fig:debug_probe}
+\end{figure}
+
+After the Pico-to-Pico connections are properly establised, and the debugger pico is connected to the host machine via USB, the debugging session can start by launching OpenOCD on the host machine using the CMSIS-DAP interface and the appropriate target configuration file (e.g., \texttt{target/rp2040.cfg}) \cite{pico_getting_started}. Once OpenOCD detects the target, it acts as a translation server and opens a local network port (typically 3333). The developer then starts GDB with the compiled \texttt{.elf} file and connects to OpenOCD via the \texttt{target extended-remote localhost:3333} command. This completes the pipeline, granting full hardware-level control, such as flashing firmware, setting breakpoints, and stepping through code, and concurrently monitoring the target's serial output \cite{pico_getting_started}.
 
 \subsection{STM32?}
 
