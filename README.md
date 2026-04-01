@@ -4,6 +4,8 @@
 This LaTeX -template is for BSc and MSc theses of the CSE, BME and BA degree
 programmes at the ITEE faculty of the University of Oulu.
 
+# Link to box case CAD files: https://github.com/PrabowoXYZ/TKJHAT_Case
+
 It has been used by various people since the late 1990's, and has
 slowly improved over time. It  still somewhat rough at the edges,
 but hopefully will be helpful in reducing some of the pain involved in
