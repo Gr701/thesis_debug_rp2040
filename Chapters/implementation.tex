@@ -4,9 +4,9 @@
 \subsection{Second board implementation}
 
 \subsection{Second core implementation - pico-debug}
-The approach where one core is used to debug another one was implemented and shared by majbthrd on Github. He developed two projects: "pico-debug" for RP2040 \cite{pico_debug}, and "pico2-debug" for RP2350 boards \cite{pico2_debug}. To setup the debugging session there are ready .uf2 files provided in the repositories. Pico-debug can be placed in RAM or cache memory of the board, and each option has its own .uf2 file. We are going with a more common and easier way to use it, placing it in the RAM, so the whole cahce is availiable for the code of the program that being debugged. To do so, we take the pico-debug-gimmecache.uf2 file from the releases page of the repository and flash it onto the board. 
+The approach where one core is used to debug another one was implemented and shared by majbthrd on Github. He developed two projects: "pico-debug" for RP2040 \cite{pico_debug}, and "pico2-debug" for RP2350 boards \cite{pico2_debug}. To setup the debugging session there are ready .uf2 files provided in the repositories. Pico-debug can be placed in RAM or cache memory of the board, and each option has its own .uf2 file. We are going with a more common and easier way to use it, placing it in the RAM, so the whole cahce is availiable for the code of the program that is being debugged. To do so, we take the pico-debug-gimmecache.uf2 file from the releases page of the repository and flush it onto the board. 
 
-Now the board shows as a CMSIS-DAP probe in the list of devices, and we can proceed to connect to it through the GDB and OpenOCD. 
+Now the board shows as a CMSIS-DAP probe in the list of devices, and we can proceed to connect to it through the GDB and OpenOCD. The OpenOCD, however, has to be built by the user, since the newer versions of Raspberry Pi's fork of it are not compatible with pico-debug. The detailed instructions areprovided in the repository's "howto" section \cite{pico_debug}. 
 
 \subsection{Jlink}
 
