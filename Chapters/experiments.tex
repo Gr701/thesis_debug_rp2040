@@ -1,32 +1,50 @@
-\section{Metrics description}
-
-To compare the approaches explored in this work we will have to define a set of metrics, both quantative and qualitative. 
-
-\subsection{Quantative metrics}
-
-The first metric which we will consider while comparing the different approaches is the price of hardware.
-
-time to produce
-physical size
-"lines of code" or RAM taken
-
-Performance and Overhead Metrics
-
-These metrics measure the impact of the debugger on the running application. 
-
-    Debug Overhead: The percentage of CPU, memory, or time added by the debugger. Heavy breakpoints or conditional logging can significantly increase execution time.
-    Slowdown Factor: Often measured in production debugging, this is the ratio of execution time with the debugger active vs. inactive (e.g., a "10x–100x slowdown" in intensive debugging scenarios).
-    Memory Access Speed: The speed at which a debugger reads/writes data to the target system, crucial for embedded processors.
-    Breakpoint Latency: Time taken to halt execution when a breakpoint is hit. 
-
-\subsection{Qualitative metrics}
-
-maintenance of the technologies used 
-beginner friendly usage
-comfort of use 
-begginer friendly installation 
-limitations of the approach
-
-
-\section{Apply metrics}
 \section{Comparison of probes}
+
+\begin{table}[!ht]
+  % Add some padding to the table cells:
+  \def\arraystretch{1.1}%
+  \begin{center}
+    \caption{The font types used in a Master’s thesis}
+    \label{tab:sample_table}
+    \begin{tabular}{| c | l | l | l | l |}
+      \hline
+      \multicolumn{1}{|l|}{Font}  & \multicolumn{4}{l|}{Layout}
+      \\\cline{2-5} \multicolumn{1}{|l|}{size} & Regular &
+      \textbf{Bold} & \textit{Italic} & \textbf{\textit{Bold}} \\(pt)
+      &  &  &  & \textbf{\textit{Italic}}\\
+      \hline
+      10 &  {\fontsize{10}{12pt}\selectfont Table and figure} &  &  &  \\
+      &  {\fontsize{10}{12pt}\selectfont contents, footnotes,} &  &  &  \\
+      &  {\fontsize{10}{12pt}\selectfont and endnotes} &  &  &  \\
+      \hline
+      12 & Standard text &  \textbf{1\textsuperscript{st} level} &
+      \textit{3\textsuperscript{rd} level} &
+      \textbf{\textit{2\textsuperscript{nd} level}}\\
+      &  equations, &  \textbf{subheadings,} &  \textit{subheadings}
+      &  \textbf{\textit{sub-}} \\
+      & references, tables, & \textbf{abstract, abstract} &  &
+      \textbf{\textit{headings}} \\
+      & captions, table & \textbf{in Finnish} &  &  \\
+      & headings & \textbf{(tiivistelmä)} &  &  \\
+      \hline
+      \rule{0pt}{0.8\normalbaselineskip}
+      14 &  & {\fontsize{14}{17pt}\selectfont \textbf{CHAPTER}} &  &  \\
+      &  & {\fontsize{14}{17pt}\selectfont
+      \textbf{TITLE\textsuperscript{1}}} &  &  \\
+      \hline
+      \rule{0pt}{1.0\normalbaselineskip}
+      16 &  & {\fontsize{16}{19pt}\selectfont \textbf{Author}} &  &  \\
+      &  & {\fontsize{16}{19pt}\selectfont \textbf{name}} &  &  \\
+      \hline
+      \rule{0pt}{1.1\normalbaselineskip}
+      {\fontsize{16}{19pt}\selectfont 18} &  &
+      {\fontsize{18}{22pt}\selectfont \textbf{THESIS}} &  &  \\
+      &  & {\fontsize{18}{22pt}\selectfont \textbf{TITLE}} &  &  \\
+      \hline
+    \end{tabular}
+    \vspace{6pt}
+
+  \raggedright \ \space \textsuperscript{1} Each full chapter should
+  start on a new page.
+\end{center}
+\end{table}
