@@ -1,5 +1,19 @@
 \section{Virtual Machine VS Container}
+To consistently replicate the software environment needed for debugging on Diverse computing infrastructures, two approaches were considered: Virtual Machine and Containers.
 
+To ensure objective evaluations, the underlying operating system was standardized as Debian 12 (Bookworm) across both the containerized and virtualized implementations. The dsitribution was chosen for its lightweight footprint and stability and proven usage in the Computer System course through Xubuntu, a Debian-based operating system.
+
+A functional debugging set up requires a software stack on top of the operating system to support it. The software stack used can be divided into four categories:
+
+\begin{itemize}
+    \item \textbf{Compiler Toolchain:} The suite of softwares needed to compile C/C++ source code into machine-readable binaries (e.g., UF2, ELF). The compile toolchain's components used for this thesis are \texttt{gcc-arm-none-eabi} cross-compilation infrastructure, which includes \texttt{libnewlib-arm-none-eabi} and \texttt{libnewlib-dev}, used as they provide the standard C library implementation, including memory management, mathematical functions, and system call stubs required for embedded I/O operations. In assistance with the compilation infrastruction, \texttt{CMake} and \texttt{Ninja} serve as the build system and generator, respectively
+    
+    \item \textbf{Middleware:} The abstraction layers that sit between the application code and the hardware. In the context of this platform, this includes the Raspberry Pi Pico SDK, which provides standardized APIs for hardware interaction, and FreeRTOS, which manages task scheduling and synchronization.
+    
+    \item \textbf{Development Interface:} The Integrated Development Environment (IDE) or interface used to write, manage, and debug the code. This includes the VS Code environment, the Cortex-Debug extension, and the custom status-bar dashboard used to trigger build and flash operations.
+    
+    \item \textbf{Connectivity and Drivers:} The software components that bridge the host machine with the microcontroller. This encompasses the GDB server (OpenOCD), the CMSIS-DAP protocol implementation, and the USB/HID drivers (such as \texttt{libhidapi} and \texttt{libusb}) necessary to maintain communication with the debug probe.
+\end{itemize}
 \section{Metrics description}
 
 Since there are several candidates for the implementation of the probe, we will define a set of metrics to choose the best one. Our set will include both quantitative and qualitative metrics, chosen based on the goal of the project, which is to implement a solution used throughout the educational process. While the values of the quantitative metrics will come directly from the tests and measurements, for qualitative metrics each of the team members will decide on a score from 1 to 5 and the average of those will be used in further considerations.
@@ -32,7 +46,7 @@ As a separate and final metric we will consider the \textbf{limitations} of each
 
 
 \section{Probe implementations}
-\subsection{Second board implementation}
+\subsection{Second RP2040/RP2350 implementation}
 
 \subsection{Second core implementation - pico-debug}
 
