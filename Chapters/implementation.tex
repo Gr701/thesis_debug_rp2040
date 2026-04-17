@@ -1,19 +1,40 @@
 \section{Virtual Machine VS Container}
 To consistently replicate the software environment needed for debugging on Diverse computing infrastructures, two approaches were considered: Virtual Machine and Containers.
 
-To ensure objective evaluations, the underlying operating system was standardized as Debian 12 (Bookworm) across both the containerized and virtualized implementations. The dsitribution was chosen for its lightweight footprint and stability and proven usage in the Computer System course through Xubuntu, a Debian-based operating system.
+To ensure objective evaluations, the underlying operating system was standardized as Debian 12 (Bookworm) across both the containerized and virtualized implementations. The dsitribution was chosen for its lightweight footprint and stability and proven usage in the Computer System course through Xubuntu, a Debian-based operating system[1].
 
 A functional debugging set up requires a software stack on top of the operating system to support it. The software stack used can be divided into four categories:
 
 \begin{itemize}
-    \item \textbf{Compiler Toolchain:} The suite of softwares needed to compile C/C++ source code into machine-readable binaries (e.g., UF2, ELF). The compile toolchain's components used for this thesis are \texttt{gcc-arm-none-eabi} cross-compilation infrastructure, which includes \texttt{libnewlib-arm-none-eabi} and \texttt{libnewlib-dev}, used as they provide the standard C library implementation, including memory management, mathematical functions, and system call stubs required for embedded I/O operations. In assistance with the compilation infrastruction, \texttt{CMake} and \texttt{Ninja} serve as the build system and generator, respectively
+    \item \textbf{Compiler Toolchain:} The suite of softwares needed to compile C/C++ source code into machine-readable binaries (e.g., UF2, ELF). The compile toolchain's components used for this thesis are \texttt{gcc-arm-none-eabi} cross-compilation infrastructure, which includes \texttt{libnewlib-arm-none-eabi} and \texttt{libnewlib-dev}, used as they provide the standard C library implementation, including memory management, mathematical functions, and system call stubs required for embedded I/O operations. In assistance with the compilation infrastruction, \texttt{CMake} and \texttt{Ninja} serve as the build system and generator, respectively. Together, they provide a versatile and reliable framework for developement of the Computer System course's project and more advanced embedded systems projects.
     
-    \item \textbf{Middleware:} The abstraction layers that sit between the application code and the hardware. In the context of this platform, this includes the Raspberry Pi Pico SDK, which provides standardized APIs for hardware interaction, and FreeRTOS, which manages task scheduling and synchronization.
+    \item \textbf{Middleware and SDKs:} To unlock all the features supported by the Raspberry Pi Pico platform and complex task management features, the environments also came prepared with Pico and FreeRTOS SDK. These provide the essential hardware abstraction and real-time scheduling capabilities required to support the course's embedded systems projects.
     
-    \item \textbf{Development Interface:} The Integrated Development Environment (IDE) or interface used to write, manage, and debug the code. This includes the VS Code environment, the Cortex-Debug extension, and the custom status-bar dashboard used to trigger build and flash operations.
+    \item \textbf{Development Interface:} To provide a familiar but versatile interface for project development, VS Code was selected for its ecosystem and flexibility, serving as the standardized IDE for the course. Along side with the main IDE, helper extensions are installed to provide effective interaction between the IDE and the development platform:
     
-    \item \textbf{Connectivity and Drivers:} The software components that bridge the host machine with the microcontroller. This encompasses the GDB server (OpenOCD), the CMSIS-DAP protocol implementation, and the USB/HID drivers (such as \texttt{libhidapi} and \texttt{libusb}) necessary to maintain communication with the debug probe.
+    \begin{itemize}
+    \item \textbf{Cortex-Debug:} Facilitates GDB-based debugging, enabling step-through execution and register-level inspection.
+    \item \textbf{Raspberry Pi Pico:} Provides essential SDK management and project configuration utilities.
+    \item \textbf{Pico-Debug-Dashboard:} A custom-made extension with the intention of unifying how VS Code invokes the compiler toolchain and speaks with the hardware. Supports features such as:
+    
+    \begin{itemize}
+    \item \textbf{Automated Project Bootstrapping:} Instant initialization of standardized project structures, including \texttt{CMake}, \texttt{FreeRTOS}, and debug configurations.
+    \item \textbf{Dynamic Build Configuration:} Real-time switching between RP2040 and RP2350 target architectures and debug modes (1-core vs. 2-core SMP) via the status bar.
+    \item \textbf{Integrated Build Orchestration:} Single-click access to \texttt{Ninja} build processes, \texttt{GDB} flash deployment, and \texttt{Picotool} operations.
+    \item \textbf{Hardware Lifecycle Management:} Centralized controls for hardware resets, BOOTSEL re-entry, and low-level firmware injection (\textit{pico-debug} RAM-loading).
+    \item \textbf{System Telemetry:} Real-time visual monitoring of USB bus states and debugger connectivity directly from the IDE status bar.
+    \end{itemize}
+
+    \end{itemize}
+    As graphical interface are not natively supported by Docker containers, code-server is instead used in place of the original VS Code to provide a browser-based equivalent to VS Code, ensuring a consistent user experience while maintaining the isolation and reproducibility of containerized environments.
+    
+    \item \textbf{Connectivity and Drivers:} The software components that bridge the host machine with the microcontroller. This includes OpenOCD as the GDB to CMSIS-DAP server, and USB/HID drivers (such as \texttt{libhidapi} and \texttt{libusb}) necessary to maintain communication with the debug probe.
+    
+    As the virtualization layers lack native access to usb devices, the accessibility must be managed by the virtualization Infrastructure itself. While VM softwares support USB passthrough natively, for Docker containers, a piece of software called \texttt{usbipd} must be installed on the host device. \texttt{usbipd} is a terminal software with the purpose of redirecting the physical USB devices from a Windows host to a guest virtual environment or the Windows Subsystem for Linux (WSL2). It functions by encapsulating USB traffic within TCP/IP packets, thereby overcoming the physical device isolation inherent in hypervisor-based architectures and allowing targeted devices to be seamlessly mounted within the execution environment. To provide easy usage of \texttt{usbipd}, a specialized script file is made for the user to initialize and manage the tool.
 \end{itemize}
+
+All software components, including toolchain binaries, SDK releases, and debugging middleware, were configured according to their respective official documentation and established best practices and efforts were made to harmonize the configuration parameters across both the virtual machine and containerized environments. This is to ensure that any observed differences in performance or usability could be attributed strictly to the underlying virtualization architecture.
+%[1] https://lovelace.oulu.fi/tietokonej%C3%A4rjestelm%C3%A4t/tietokonej%C3%A4rjestelm%C3%A4t/tkj-virtual-machine-download-and-history/
 \section{Metrics description}
 
 Since there are several candidates for the implementation of the probe, we will define a set of metrics to choose the best one. Our set will include both quantitative and qualitative metrics, chosen based on the goal of the project, which is to implement a solution used throughout the educational process. While the values of the quantitative metrics will come directly from the tests and measurements, for qualitative metrics each of the team members will decide on a score from 1 to 5 and the average of those will be used in further considerations.
@@ -47,6 +68,18 @@ As a separate and final metric we will consider the \textbf{limitations} of each
 
 \section{Probe implementations}
 \subsection{Second RP2040/RP2350 implementation}
+
+Following the intruction provided by Raspberry Pi \cite{pico_getting_started}, the second RP2040/RP2350 device, now referred to as the probe, is flashed with the \texttt{debugprobe.uf2}. Physical connections between the probe and the targeted device are made according to the guide (see Page \pageref{box:picoprobe-wiring}). Once the probe is connected to the host machine via USB, the user can start the debugging session through VS Code \cite{pico_getting_started} or initializing the installed GDB and OpenOCD through command-line with commands:
+
+\$ sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000"
+
+For a RP2350-based device use -f target/rp2350.cfg instead.
+
+Then a specialized version of GDB is started with 
+
+\$ gdb-multiarch
+
+Finally, the GDB client connects to the \texttt{OpenOCD} server via \texttt{target remote localhost:3333}, establishing the data link required to execute, inspect, and monitor the target device's firmware in real-time.
 
 \subsection{Second core implementation - pico-debug}
 
