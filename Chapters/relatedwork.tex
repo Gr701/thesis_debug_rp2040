@@ -178,7 +178,7 @@ To make the connecting process more consumer-friendly, the official Raspberry Pi
       \includegraphics*[width=\textwidth]{debugprobe}
     \end{center}
     \caption{the official Raspberry Pi Debug Probe \cite{debugprobe_docs}.}
-    \label{fig:debug_probe}
+    \label{fig:debugprobe}
 \end{figure}
 
 After the Pico-to-Pico connections are properly establised, and the debugger pico is connected to the host machine via USB, the debugging session can start by launching OpenOCD on the host machine using the CMSIS-DAP interface and the appropriate target configuration file (e.g., \texttt{target/rp2040.cfg}) \cite{pico_getting_started}. Once OpenOCD detects the target, it acts as a translation server and opens a local network port (typically 3333). The developer then starts GDB with the compiled \texttt{.elf} file and connects to OpenOCD via the \texttt{target extended-remote localhost:3333} command. This completes the pipeline, granting full hardware-level control, such as flashing firmware, setting breakpoints, and stepping through code, and concurrently monitoring the target's serial output \cite{pico_getting_started}.

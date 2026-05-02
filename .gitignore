@@ -10,4 +10,7 @@ report.xml
 *.blg
 *.bcf
 *.run.xml
+*.fls
+*.fdb_latexmk
+*.synctex.gz
 

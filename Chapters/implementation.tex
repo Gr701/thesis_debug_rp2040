@@ -69,7 +69,7 @@ As a separate and final metric we will consider the \textbf{limitations} of each
 \section{Probe implementations}
 \subsection{Second RP2040/RP2350 implementation}
 
-The second board implementation utilises an additional RP-based microcontroller device as a dedicated hardware debugger. Now referred to as the probe, the device is flashed with the \texttt{debugprobe.uf2} firmware, turning it into a composite USB device that supports both the ARM CMSIS-DAP protocol for debugging and a Communication Device Class (CDC) interface for serial console monitoring. Physical connections between the probe and the target device are established via a 3-pin debug header, providing the necessary SWD signals and a bidirectional UART bridge for console output (see Box \ref{box:picoprobe-wiring} on page \pageref{box:picoprobe-wiring}). Once the connection between the probe and the host machine is established via USB, the debugging session can be initialised through VS Code or by manually initialising the GDB-to-OpenOCD-to-Probe pipeline through a terminal environment with commands\cite{pico_getting_started}:
+The second board implementation utilises an additional RP-based microcontroller device as a dedicated hardware debugger. Now referred to as the probe, the device is flashed with the \texttt{debugprobe.uf2} firmware, turning it into a composite USB device that supports both the ARM CMSIS-DAP protocol for debugging and a Communication Device Class (CDC) interface for serial console monitoring. Physical connections between the probe and the target device are established via a 5-pin debug header, providing the necessary SWD signals and the bidirectional UART bridge needed for console output (see Box \ref{box:picoprobe-wiring} on page \pageref{box:picoprobe-wiring}). Once the connection between the probe and the host machine is established via USB, the debugging session can be initialised through VS Code or by manually initialising the GDB-to-OpenOCD-to-Probe pipeline through a terminal environment with commands\cite{pico_getting_started}:
 
 \begin{tcolorbox}[
     colback=black!5,     
@@ -95,9 +95,9 @@ $ gdb-multiarch  <project_name>.elf
 Once the debugging pipeline is properly initialised, the platform provides a robust environment for system diagnostics, supporting a comprehensive set of \texttt{GDB} and \texttt{OpenOCD} features for hardware-level control:
 \begin{itemize}
 \item \textbf{Instruction-Level Control:} Enables precise program flow management through \texttt{step-into}, \texttt{step-over}, and \texttt{continue} operations, allowing the developer to isolate logic errors at the assembly or source code level.
-\item \textbf{Hardware-Assisted Breakpoints:} Facilitates non-intrusive program halting using hardware breakpoints, enabling the investigation of specific execution states without altering the target's timing characteristics.
-\item \textbf{System State Inspection:} Grants deep visibility into the processor by exposing the Program Counter (\texttt{PC}), Stack Pointer (\texttt{SP}), and general-purpose registers, essential for diagnosing exception states or erratic task behavior.
-\item \textbf{Real-Time Memory and Register Analysis:} Allows for the dynamic examination and modification of memory addresses and peripheral register maps (\texttt{SVD} integration), providing a direct window into the microcontroller's hardware state.
+\item \textbf{Hardware and Software Breakpoints:} The platform automatically switches between hardware-assisted breakpoints for Flash memory and software breakpoints for RAM to facilitate non-intrusive execution halting.
+\item \textbf{System State Inspection:} Grants deep visibility into the processor by exposing the Program Counter (\texttt{PC}), Stack Pointer (\texttt{SP}), and general-purpose registers.
+\item \textbf{Real-Time Memory and Register Analysis:} Allows for the dynamic examination and modification of memory addresses and peripheral register maps (\texttt{SVD} integration).
 \item \textbf{Stack Traceback and Backtracing:} Provides the ability to traverse the function call hierarchy, which is critical for identifying recursive errors, stack overflows, and improper task transitions within a multi-threaded \texttt{FreeRTOS} environment.
 \end{itemize}
 
