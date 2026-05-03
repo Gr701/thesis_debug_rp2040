@@ -1,15 +1,17 @@
-\section{Comparison of Probes}
-To identify the optimal solution for the laboratory environment, a systematic framework is established to evaluate all approaches and determine the most suitable methodology. The framework consists of both quantitative and qualitative metrics to ensure a comprehensive and accurate evaluation of the methodologies.
 
-Quantitative metrics are utilised to assess measurable, objective factors such as financial cost, manufacturing time, and the technical performance overhead introduced by the debugging process. These metrics are needed to assess the scalability of a solution within a university budget and laboratory setting.
+To identify the optimal solution for the course environment, a systematic framework is established to evaluate all approaches and determine the most suitable methodology. The framework consists of both quantitative and qualitative metrics to ensure a comprehensive and accurate evaluation of the methodologies.
 
-Qualitative metrics address the human-centric aspects of the platform, focusing on beginner-friendliness, ergonomics, and long-term software maintainability.
+Quantitative metrics are utilised to assess measurable, objective factors such as cost, manufacturing time, and the performance overhead introduced during the debugging process. These metrics are needed to assess the scalability of a solution within the Computer System course setting. Metrics choosen to evaluate were Price of materials (Euro), Time to produce each unit (minutes and hours), Size of addition (Cm), and Debug Overhead. Debug Overhead is measured using multiple units of measure, including data throughput for flashing, round-trip latency for debugger commands, and total initialization time for the environment.
 
-While evaluating quantitative metrics is straightforward, as they are derived from objective measurements and empirical data, qualitative metrics introduce a degree of subjectivity that requires a more structured analytical approach. Inspired by 
+Qualitative metrics address the human-centric aspects of the platform. Subjective metrics considered in this framework are State of Maintanence, Beginner-friendly, and Comfort of use. The metrics were chosen to evaluate the educational effectiveness and the sustainability of each implementation, ensuring the chosen platform is both intuitive for beginners and reliable for long-term educational use.
+
+While evaluating quantitative metrics is straightforward, as they are derived from objective measurements and empirical data, qualitative metrics introduce a degree of subjectivity that requires a more structured analytical approach. To streamline the NASA Task Load Index (NASA-TLX), our framework's qualitative metrics were quantified on a 1-to-5 scale to evaluate the human-centric aspects of each methodology, with 1 being high aversion and 5 being high affinity. The final score is the average of the subjective assessments of three project team members, ensuring a structured, reliable consensus on factors such as beginner-friendliness and ease of use.
+
+
 \begin{table}[!ht]
   \def\arraystretch{1.3}
   \begin{center}
-    \caption{Comparison of Debug Probe Implementation Candidates}
+    \caption{Comparison Summary of Probe Implementation Candidates}
     \label{tab:probe_comparison}
     \begin{tabular}{|l|c|c|c|}
       \hline
@@ -24,6 +26,8 @@ While evaluating quantitative metrics is straightforward, as they are derived fr
       \hline
       Size of addition (cm) & 5 $\times$ 2 + wires & 0 (Internal) & 10 $\times$ 5 $\times$ 2 + wires \\
       \hline
+      \textbf{Quantitative Summary} & \textbf{Low Cost} & \textbf{Minimal/Zero} & \textbf{High Cost} \\
+      \hline
       \hline
       \multicolumn{4}{|l|}{\textit{Qualitative Metrics (Scores 1--5)}} \\
       \hline
@@ -33,11 +37,16 @@ While evaluating quantitative metrics is straightforward, as they are derived fr
       \hline
       Comfort of use & 4.0 & 4.0 & 3.0 \\
       \hline
-      Open Source & Yes & Yes & No \\
+      \textbf{Total Qualitative Score} & \textbf{12.3 / 15} & \textbf{11.0 / 15} & \textbf{10.0 / 15} \\
       \hline
     \end{tabular}
     \vspace{6pt}
-
-    \raggedright \textsuperscript{1} Includes assembly and 3D-printing time for the integrated casing.
   \end{center}
 \end{table}
+\clearpage
+
+\begin{itemize}
+    \item \textbf{State of Maintenance:} Evaluates the frequency of updates and institutional backing. The Second Pico and SEGGER J-Link received scores of 5.0 due to their support from established commercial entities and frequent updates. At the same time, pico-debug (Core) was assigned a 2.0 rating, as it relies on a single community maintainer and the RP2040 firmware version is archived and no longer supported.
+    \item \textbf{Beginner-friendliness:} Measures the initial learning curve and hardware setup process. The pico-debug (Core) implementation achieved a 5.0 for requiring no external hardware and simple firmware flashing. In contrast, the Second Pico (3.3) and SEGGER J-Link (2.0) were rated lower due to wiring and firmware complexities.
+    \item \textbf{Comfort of Use:} Assesses the ergonomics of the daily workflow; both \textbf{Pico-based} solutions scored 4.0 due to their seamless integration with the custom IDE dashboard and theirs physical size being more optimised for handling, while the SEGGER J-Link scored a 3.0 due to its physical bulk and rigid proprietary software requirements.
+\end{itemize}

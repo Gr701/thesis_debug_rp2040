@@ -1,0 +1,638 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{raspberry_history}{online}{}{}
+      \list{organization}{1}{%
+        {Raspberry Pi Foundation}%
+      }
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{title}{Strategy 2016-2018}
+      \field{urlday}{11}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.raspberrypi.org/files/about/RaspberryPiFoundationStrategy2016-18.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.raspberrypi.org/files/about/RaspberryPiFoundationStrategy2016-18.pdf
+      \endverb
+    \endentry
+    \entry{raspberry_success}{online}{}{}
+      \list{organization}{1}{%
+        {Raspberry Pi}%
+      }
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{title}{Success strories}
+      \field{urlday}{11}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.raspberrypi.com/success-stories/
+      \endverb
+      \verb{url}
+      \verb https://www.raspberrypi.com/success-stories/
+      \endverb
+    \endentry
+    \entry{raspberry_pico_1}{online}{}{}
+      \list{organization}{1}{%
+        {Raspberry Pi Trading Ltd}%
+      }
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{title}{Raspberry Pi Pico}
+      \field{urlday}{11}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://datasheets.raspberrypi.com/pico/pico-product-brief.pdf
+      \endverb
+      \verb{url}
+      \verb https://datasheets.raspberrypi.com/pico/pico-product-brief.pdf
+      \endverb
+    \endentry
+    \entry{raspberry_pico_2}{online}{}{}
+      \list{organization}{1}{%
+        {Raspberry Pi Ltd}%
+      }
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{title}{Raspberry Pi Pico 2 series}
+      \field{urlday}{11}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://datasheets.raspberrypi.com/pico/pico-2-product-brief.pdf
+      \endverb
+      \verb{url}
+      \verb https://datasheets.raspberrypi.com/pico/pico-2-product-brief.pdf
+      \endverb
+    \endentry
+    \entry{gdb_manual}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=cb96118d65be9f05ad10bd5cfdaf0f6d}{%
+           family={{Free Software Foundation}},
+           familyi={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{cb96118d65be9f05ad10bd5cfdaf0f6d}
+      \strng{fullhash}{cb96118d65be9f05ad10bd5cfdaf0f6d}
+      \strng{fullhashraw}{cb96118d65be9f05ad10bd5cfdaf0f6d}
+      \strng{bibnamehash}{cb96118d65be9f05ad10bd5cfdaf0f6d}
+      \strng{authorbibnamehash}{cb96118d65be9f05ad10bd5cfdaf0f6d}
+      \strng{authornamehash}{cb96118d65be9f05ad10bd5cfdaf0f6d}
+      \strng{authorfullhash}{cb96118d65be9f05ad10bd5cfdaf0f6d}
+      \strng{authorfullhashraw}{cb96118d65be9f05ad10bd5cfdaf0f6d}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Debugging with {GDB}: The {GNU} Source-Level Debugger}
+      \field{urlday}{22}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://sourceware.org/gdb/current/onlinedocs/gdb.pdf
+      \endverb
+      \verb{url}
+      \verb https://sourceware.org/gdb/current/onlinedocs/gdb.pdf
+      \endverb
+    \endentry
+    \entry{gdb_architecture}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=6ce94f6febf181d8255443c676bbd4cc}{%
+           family={Shebs},
+           familyi={S\bibinitperiod},
+           given={Stan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{6ce94f6febf181d8255443c676bbd4cc}
+      \strng{fullhash}{6ce94f6febf181d8255443c676bbd4cc}
+      \strng{fullhashraw}{6ce94f6febf181d8255443c676bbd4cc}
+      \strng{bibnamehash}{6ce94f6febf181d8255443c676bbd4cc}
+      \strng{authorbibnamehash}{6ce94f6febf181d8255443c676bbd4cc}
+      \strng{authornamehash}{6ce94f6febf181d8255443c676bbd4cc}
+      \strng{authorfullhash}{6ce94f6febf181d8255443c676bbd4cc}
+      \strng{authorfullhashraw}{6ce94f6febf181d8255443c676bbd4cc}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Architecture of Open Source Applications (Volume 2): {GDB}}
+      \field{urlday}{22}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2012}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://aosabook.org/en/v2/gdb.html
+      \endverb
+      \verb{url}
+      \verb https://aosabook.org/en/v2/gdb.html
+      \endverb
+    \endentry
+    \entry{pico_getting_started}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=abdff8c3bc7ac1a29e4f7edc008fe26b}{%
+           family={{Raspberry Pi Ltd}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{fullhash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{fullhashraw}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{bibnamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorbibnamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authornamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorfullhash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorfullhashraw}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Getting started with {Raspberry Pi Pico}: {C/C++} development with {Raspberry Pi Pico} and other {RP2040}-based microcontroller boards}
+      \field{urlday}{22}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf
+      \endverb
+      \verb{url}
+      \verb https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf
+      \endverb
+    \endentry
+    \entry{openocd_website}{online}{}{}
+      \list{organization}{1}{%
+        {The OpenOCD Project}%
+      }
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{title}{OpenOCD: Free and Open On-Chip Debugging, In-System Programming and Boundary-Scan Testing}
+      \field{urlday}{22}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://openocd.org/
+      \endverb
+      \verb{url}
+      \verb https://openocd.org/
+      \endverb
+    \endentry
+    \entry{hoegl2006openocd}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=92e1de11d4c8e373d595c0eba65179bd}{%
+           family={Högl},
+           familyi={H\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod}}}%
+        {{hash=25ced28dcfd8773a3a45aaafa9a8d438}{%
+           family={Rath},
+           familyi={R\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{fb6a22878bba2216449a34eabcf18b8c}
+      \strng{fullhash}{fb6a22878bba2216449a34eabcf18b8c}
+      \strng{fullhashraw}{fb6a22878bba2216449a34eabcf18b8c}
+      \strng{bibnamehash}{fb6a22878bba2216449a34eabcf18b8c}
+      \strng{authorbibnamehash}{fb6a22878bba2216449a34eabcf18b8c}
+      \strng{authornamehash}{fb6a22878bba2216449a34eabcf18b8c}
+      \strng{authorfullhash}{fb6a22878bba2216449a34eabcf18b8c}
+      \strng{authorfullhashraw}{fb6a22878bba2216449a34eabcf18b8c}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Paper for Embedded World 2006}
+      \field{note}{Initial academic paper describing the OpenOCD project}
+      \field{title}{Open On-Chip Debugger}
+      \field{urlday}{22}
+      \field{urlmonth}{3}
+      \field{urlyear}{2026}
+      \field{year}{2006}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://tha.de/~hhoegl/home/es2/openocd/oocd-2006.pdf
+      \endverb
+      \verb{url}
+      \verb https://tha.de/~hhoegl/home/es2/openocd/oocd-2006.pdf
+      \endverb
+    \endentry
+    \entry{cmsis_dap}{online}{}{}
+      \list{organization}{1}{%
+        {Arm Limited}%
+      }
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{title}{{CMSIS-DAP}}
+      \field{urlday}{13}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://arm-software.github.io/CMSIS-DAP/latest/
+      \endverb
+      \verb{url}
+      \verb https://arm-software.github.io/CMSIS-DAP/latest/
+      \endverb
+    \endentry
+    \entry{zephyr_probes}{online}{}{}
+      \list{organization}{1}{%
+        {Zephyr Project}%
+      }
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{title}{Debug Probes}
+      \field{urlday}{13}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{year}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.zephyrproject.org/latest/develop/flash_debug/probes.html
+      \endverb
+      \verb{url}
+      \verb https://docs.zephyrproject.org/latest/develop/flash_debug/probes.html
+      \endverb
+    \endentry
+    \entry{adi}{online}{}{}
+      \list{organization}{1}{%
+        {Arm Limited}%
+      }
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labeltitlesource}{title}
+      \field{title}{{Arm Debug Interface: Architecture Specfictaion, ADIv5.0 to ADIv5.2}}
+      \field{urlday}{14}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://documentation-service.arm.com/static/622222b2e6f58973271ebc21?token=
+      \endverb
+      \verb{url}
+      \verb https://documentation-service.arm.com/static/622222b2e6f58973271ebc21?token=
+      \endverb
+    \endentry
+    \entry{debugprobe_repo}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=abdff8c3bc7ac1a29e4f7edc008fe26b}{%
+           family={{Raspberry Pi Ltd}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {GitHub}%
+      }
+      \strng{namehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{fullhash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{fullhashraw}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{bibnamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorbibnamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authornamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorfullhash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorfullhashraw}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \field{extraname}{2}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://github.com/raspberrypi/debugprobe}}
+      \field{note}{Accessed: Mar. 23, 2026}
+      \field{title}{debugprobe: Firmware source and binaries for the RP2040-based Debug Probe accessory}
+      \field{year}{2026}
+    \endentry
+    \entry{debugprobe_docs}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=abdff8c3bc7ac1a29e4f7edc008fe26b}{%
+           family={{Raspberry Pi Ltd}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{fullhash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{fullhashraw}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{bibnamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorbibnamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authornamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorfullhash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorfullhashraw}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \field{extraname}{3}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.raspberrypi.com/documentation/microcontrollers/debug-probe.html}}
+      \field{note}{Accessed: Mar. 23, 2026}
+      \field{title}{Raspberry Pi Debug Probe Documentation}
+      \field{year}{2026}
+    \endentry
+    \entry{debug_connector_spec}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=abdff8c3bc7ac1a29e4f7edc008fe26b}{%
+           family={{Raspberry Pi Ltd}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{fullhash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{fullhashraw}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{bibnamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorbibnamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authornamehash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorfullhash}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \strng{authorfullhashraw}{abdff8c3bc7ac1a29e4f7edc008fe26b}
+      \field{extraname}{4}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://datasheets.raspberrypi.com/debug/debug-connector-specification.pdf}}
+      \field{note}{Accessed: Mar. 23, 2026}
+      \field{title}{Raspberry Pi 3-pin Debug Connector Specification}
+      \field{year}{2026}
+    \endentry
+    \entry{raspberry_rp2040}{online}{}{}
+      \list{organization}{1}{%
+        {Raspberry Pi Ltd}%
+      }
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labeltitlesource}{title}
+      \field{title}{RP2040 Datasheet}
+      \field{urlday}{16}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{year}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://pip.raspberrypi.com/documents/RP-008371-DS-1-rp2040-datasheet.pdf
+      \endverb
+      \verb{url}
+      \verb https://pip.raspberrypi.com/documents/RP-008371-DS-1-rp2040-datasheet.pdf
+      \endverb
+    \endentry
+    \entry{raspberry_rp2350}{online}{}{}
+      \list{organization}{1}{%
+        {Raspberry Pi Ltd}%
+      }
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labeltitlesource}{title}
+      \field{title}{RP2350 Datasheet}
+      \field{urlday}{16}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://pip.raspberrypi.com/documents/RP-008373-DS-2-rp2350-datasheet.pdf
+      \endverb
+      \verb{url}
+      \verb https://pip.raspberrypi.com/documents/RP-008373-DS-2-rp2350-datasheet.pdf
+      \endverb
+    \endentry
+    \entry{blackmagic}{online}{}{}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labeltitlesource}{title}
+      \field{title}{{Black Magic Probe: Embedded Debugging with the Black Magic Probe}}
+      \field{urlday}{16}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.compuphase.com/electronics/BlackMagicProbe.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.compuphase.com/electronics/BlackMagicProbe.pdf
+      \endverb
+    \endentry
+    \entry{jlink}{online}{}{}
+      \list{organization}{1}{%
+        {SEGGER Microcontroller GmbH}%
+      }
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labeltitlesource}{title}
+      \field{title}{{J-Link / J-Trace User Guide}}
+      \field{urlday}{16}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.segger.com/downloads/jlink/UM08001
+      \endverb
+      \verb{url}
+      \verb https://www.segger.com/downloads/jlink/UM08001
+      \endverb
+    \endentry
+    \entry{kelhala:2024}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=73ff6f393b86161f091fd6cdd929080c}{%
+           family={Kelhälä},
+           familyi={K\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+        {{hash=231a39ef09d17933ead8656d00d2a58a}{%
+           family={Islam},
+           familyi={I\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=a0139ed3fa905bd1e3b7d092565f5627}{%
+           family={Sánchez\bibnamedelima Milara},
+           familyi={S\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={I.},
+           giveni={I\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{10fa2ea6b1ae6e62b12f80086f9b5321}
+      \strng{fullhash}{53bcce7ec66ad9623adc4b7df181ba62}
+      \strng{fullhashraw}{53bcce7ec66ad9623adc4b7df181ba62}
+      \strng{bibnamehash}{53bcce7ec66ad9623adc4b7df181ba62}
+      \strng{authorbibnamehash}{53bcce7ec66ad9623adc4b7df181ba62}
+      \strng{authornamehash}{10fa2ea6b1ae6e62b12f80086f9b5321}
+      \strng{authorfullhash}{53bcce7ec66ad9623adc4b7df181ba62}
+      \strng{authorfullhashraw}{53bcce7ec66ad9623adc4b7df181ba62}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the 14th International Conference on the Internet of Things}
+      \field{month}{11}
+      \field{title}{Building an Open-Source, Open-Hardware Platform for {IoT} Education for Higher Education}
+      \field{volume}{14}
+      \field{year}{2024}
+      \field{pages}{180\bibrangedash 183}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1145/3703790.3703842
+      \endverb
+    \endentry
+    \entry{bscstudies}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=73ff6f393b86161f091fd6cdd929080c}{%
+           family={Kelhälä},
+           familyi={K\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{73ff6f393b86161f091fd6cdd929080c}
+      \strng{fullhash}{73ff6f393b86161f091fd6cdd929080c}
+      \strng{fullhashraw}{73ff6f393b86161f091fd6cdd929080c}
+      \strng{bibnamehash}{73ff6f393b86161f091fd6cdd929080c}
+      \strng{authorbibnamehash}{73ff6f393b86161f091fd6cdd929080c}
+      \strng{authornamehash}{73ff6f393b86161f091fd6cdd929080c}
+      \strng{authorfullhash}{73ff6f393b86161f091fd6cdd929080c}
+      \strng{authorfullhashraw}{73ff6f393b86161f091fd6cdd929080c}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Evaluating Hardware Platforms for Computer Systems Education} Computer Science and Engineering}
+      \field{urlday}{16}
+      \field{urlmonth}{2}
+      \field{urlyear}{2026}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://urn.fi/URN:NBN:fi:oulu-202405083228
+      \endverb
+      \verb{url}
+      \verb https://urn.fi/URN:NBN:fi:oulu-202405083228
+      \endverb
+    \endentry
+    \entry{tkj_vm_history}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=2595e6712747c80c4c53e2a22708d10a}{%
+           family={{University of Oulu}},
+           familyi={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{2595e6712747c80c4c53e2a22708d10a}
+      \strng{fullhash}{2595e6712747c80c4c53e2a22708d10a}
+      \strng{fullhashraw}{2595e6712747c80c4c53e2a22708d10a}
+      \strng{bibnamehash}{2595e6712747c80c4c53e2a22708d10a}
+      \strng{authorbibnamehash}{2595e6712747c80c4c53e2a22708d10a}
+      \strng{authornamehash}{2595e6712747c80c4c53e2a22708d10a}
+      \strng{authorfullhash}{2595e6712747c80c4c53e2a22708d10a}
+      \strng{authorfullhashraw}{2595e6712747c80c4c53e2a22708d10a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://lovelace.oulu.fi/tietokonej\%C3\%A4rjestelm\%C3\%A4t/tietokonej\%C3\%A4rjestelm\%C3\%A4t/tkj-virtual-machine-download-and-history/}}
+      \field{note}{Accessed: April 20, 2026}
+      \field{title}{TKJ Virtual Machine Download and History}
+      \field{year}{2026}
+    \endentry
+    \entry{pico_debug}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=2e0e47d5f041ac8fd121dba00dce3bb2}{%
+           family={majbthrd},
+           familyi={m\bibinitperiod}}}%
+      }
+      \strng{namehash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{fullhash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{fullhashraw}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{bibnamehash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{authorbibnamehash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{authornamehash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{authorfullhash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{authorfullhashraw}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{pico-debug}
+      \field{urlday}{11}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/majbthrd/pico-debug
+      \endverb
+      \verb{url}
+      \verb https://github.com/majbthrd/pico-debug
+      \endverb
+    \endentry
+    \entry{pico2_debug}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=2e0e47d5f041ac8fd121dba00dce3bb2}{%
+           family={majbthrd},
+           familyi={m\bibinitperiod}}}%
+      }
+      \strng{namehash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{fullhash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{fullhashraw}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{bibnamehash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{authorbibnamehash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{authornamehash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{authorfullhash}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \strng{authorfullhashraw}{2e0e47d5f041ac8fd121dba00dce3bb2}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{pico2-debug}
+      \field{urlday}{11}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{year}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/majbthrd/pico2-debug
+      \endverb
+      \verb{url}
+      \verb https://github.com/majbthrd/pico2-debug
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
