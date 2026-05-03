@@ -1,3 +1,15 @@
 \section{Author's contributions and the role of Artificial Intelligence}
 
 The structure of a thesis can vary. However, at the end of the introductory chapter, you must include a section titled \textit{Author's Contributions and the Role of Artificial Intelligence}. In this section, you should clarify your independent contributions to the thesis and explain how AI was used in its preparation, if applicable. More information can be found in Sections writing and AI.
+
+Debugging is a fundamental part of software development, but in embedded systems it introduces additional complexity due to the need to interact with external hardware. In the Computer Systems course, students are required to work with microcontrollers and low-level programming concepts, yet many struggle with setting up the required toolchains and debugging environments. As a result, debugging is often reduced to simple print-based methods, which limits visibility into program execution and slows down development.
+
+Unlike standard desktop development, embedded debugging requires a complete pipeline consisting of a compiler toolchain, a debugger, a communication interface, and a hardware probe. These components must be configured correctly and must work together reliably. Small configuration errors or differences between systems can lead to failures that are difficult for beginners to diagnose. This creates a significant barrier in an educational setting, where consistency and ease of use are critical.
+
+This thesis focuses on the design and implementation of a debugging platform for the RP2040 and RP2350 microcontrollers. The goal is to provide a unified and reproducible environment that simplifies setup and reduces configuration-related issues. Two approaches for environment delivery are considered: containerisation and virtual machines. Both approaches aim to package the required software stack—including compiler toolchains, debugging tools, and development interfaces—into a consistent system that can be deployed across different host machines.
+
+In addition to the software environment, multiple debugging methods are evaluated. These include hardware-based probes, such as a second microcontroller acting as a debugger, and software-based approaches, such as internal core debugging. Each method has different trade-offs in terms of cost, performance, maintainability, and ease of use.
+
+The platform is designed for use in the University of Oulu’s Computer Systems course, where it must support both individual use and large-scale deployment. To determine the most suitable solution, a set of quantitative and qualitative metrics is defined. Quantitative metrics include factors such as cost and performance, while qualitative metrics focus on usability, maintenance, and beginner-friendliness.
+
+The structure of this thesis is as follows. Chapter 2 presents the background information required to understand the debugging pipeline and the technologies involved. Chapter 3 describes the implementation of the platform. Chapter 4 compares the evaluated approaches, and Chapter 5 presents the conclusions.
