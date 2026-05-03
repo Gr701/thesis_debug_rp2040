@@ -1,50 +1,43 @@
-\section{Comparison of probes}
+\section{Comparison of Probes}
+To identify the optimal solution for the laboratory environment, a systematic framework is established to evaluate all approaches and determine the most suitable methodology. The framework consists of both quantitative and qualitative metrics to ensure a comprehensive and accurate evaluation of the methodologies.
 
+Quantitative metrics are utilised to assess measurable, objective factors such as financial cost, manufacturing time, and the technical performance overhead introduced by the debugging process. These metrics are needed to assess the scalability of a solution within a university budget and laboratory setting.
+
+Qualitative metrics address the human-centric aspects of the platform, focusing on beginner-friendliness, ergonomics, and long-term software maintainability.
+
+While evaluating quantitative metrics is straightforward, as they are derived from objective measurements and empirical data, qualitative metrics introduce a degree of subjectivity that requires a more structured analytical approach. Inspired by 
 \begin{table}[!ht]
-  % Add some padding to the table cells:
-  \def\arraystretch{1.1}%
+  \def\arraystretch{1.3}
   \begin{center}
-    \caption{The font types used in a Master’s thesis}
-    \label{tab:sample_table}
-    \begin{tabular}{| c | l | l | l | l |}
+    \caption{Comparison of Debug Probe Implementation Candidates}
+    \label{tab:probe_comparison}
+    \begin{tabular}{|l|c|c|c|}
       \hline
-      \multicolumn{1}{|l|}{Font}  & \multicolumn{4}{l|}{Layout}
-      \\\cline{2-5} \multicolumn{1}{|l|}{size} & Regular &
-      \textbf{Bold} & \textit{Italic} & \textbf{\textit{Bold}} \\(pt)
-      &  &  &  & \textbf{\textit{Italic}}\\
+      \textbf{Metric} & \textbf{Second Pico} & \textbf{Core (pico-debug)} & \textbf{SEGGER J-Link} \\
       \hline
-      10 &  {\fontsize{10}{12pt}\selectfont Table and figure} &  &  &  \\
-      &  {\fontsize{10}{12pt}\selectfont contents, footnotes,} &  &  &  \\
-      &  {\fontsize{10}{12pt}\selectfont and endnotes} &  &  &  \\
       \hline
-      12 & Standard text &  \textbf{1\textsuperscript{st} level} &
-      \textit{3\textsuperscript{rd} level} &
-      \textbf{\textit{2\textsuperscript{nd} level}}\\
-      &  equations, &  \textbf{subheadings,} &  \textit{subheadings}
-      &  \textbf{\textit{sub-}} \\
-      & references, tables, & \textbf{abstract, abstract} &  &
-      \textbf{\textit{headings}} \\
-      & captions, table & \textbf{in Finnish} &  &  \\
-      & headings & \textbf{(tiivistelmä)} &  &  \\
+      \multicolumn{4}{|l|}{\textit{Quantitative Metrics}} \\
       \hline
-      \rule{0pt}{0.8\normalbaselineskip}
-      14 &  & {\fontsize{14}{17pt}\selectfont \textbf{CHAPTER}} &  &  \\
-      &  & {\fontsize{14}{17pt}\selectfont
-      \textbf{TITLE\textsuperscript{1}}} &  &  \\
+      Price of materials & 16 € & $\approx$0.50 € & 800 € \\
       \hline
-      \rule{0pt}{1.0\normalbaselineskip}
-      16 &  & {\fontsize{16}{19pt}\selectfont \textbf{Author}} &  &  \\
-      &  & {\fontsize{16}{19pt}\selectfont \textbf{name}} &  &  \\
+      Time to produce & 15 min + 2 hr\textsuperscript{1} & 15 min + 2 hr\textsuperscript{1} & 15 min + 2 hr\textsuperscript{1} \\
       \hline
-      \rule{0pt}{1.1\normalbaselineskip}
-      {\fontsize{16}{19pt}\selectfont 18} &  &
-      {\fontsize{18}{22pt}\selectfont \textbf{THESIS}} &  &  \\
-      &  & {\fontsize{18}{22pt}\selectfont \textbf{TITLE}} &  &  \\
+      Size of addition (cm) & 5 $\times$ 2 + wires & 0 (Internal) & 10 $\times$ 5 $\times$ 2 + wires \\
+      \hline
+      \hline
+      \multicolumn{4}{|l|}{\textit{Qualitative Metrics (Scores 1--5)}} \\
+      \hline
+      Maintained & 5.0 & 2.0 & 5.0 \\
+      \hline
+      Beginner-friendly & 3.3 & 5.0 & 2.0 \\
+      \hline
+      Comfort of use & 4.0 & 4.0 & 3.0 \\
+      \hline
+      Open Source & Yes & Yes & No \\
       \hline
     \end{tabular}
     \vspace{6pt}
 
-  \raggedright \ \space \textsuperscript{1} Each full chapter should
-  start on a new page.
-\end{center}
+    \raggedright \textsuperscript{1} Includes assembly and 3D-printing time for the integrated casing.
+  \end{center}
 \end{table}
