@@ -113,12 +113,66 @@ Now the board shows as a CMSIS-DAP probe in the list of devices, and we can proc
 
 \subsection{SEGGER J-link}
 
-WORK IN PROGRESS
+\begin{figure}[ht]
+    \begin{center}
+      \includegraphics[width=0.45\textwidth]{jlink\_setup}
+    \end{center}
+    \caption{Physical setup of the J-Link implementation; the JTAG cable is connected to the J-Link EDU.}
+    \label{fig:jlink_setup}
+\end{figure}
+
+The SEGGER J-Link, specifically the J-Link EDU V11 model, implementation requires a lot of background setup work before it becomes a viable debugging solution. Since the target device in this case is an SBC in the form of the Pico W, a breadboard is needed to ensure proper connections. Wiring can be difficult without the necessary breakout boards, as loose cables can disrupt debugging operations. This specific impelementation utilises male-to-male DuPont wire to bridge the capability gap from the lack of of proper proprietary connectors.
+
+\begin{figure}[ht]
+    \begin{center}
+      \includegraphics[width=0.8\textwidth]{jlink\_connections}
+    \end{center}
+    \caption{List of connections from the J-Link to the Pico.}
+    \label{fig:jlink_connect}
+\end{figure}
+
+
+It is extremely important to correctly wire up this setup. Incorrect connections will most commonly result in a complete failure to establish communication between the SEGGER J-Link EDU V11 and the Pico W. If key signals such as SWDIO, SWCLK, or ground are miswired or not properly connected, the debugger will not be able to detect the target device at all. This typically appears as connection errors in the J-Link software, where the system repeatedly fails to identify or communicate with the microcontroller.
+
+More severe consequences can occur if power-related pins are connected incorrectly. Miswiring voltage lines or shorting power to ground can damage the Pico W, the J-Link device, or both. Even less destructive errors, such as incorrect reference voltage connections, can lead to improper signal levels and unpredictable operation. For this reason, careful verification of all wiring is essential before attempting to use the debugger.
+
+The Segger J-Link Edu probe requires initial firmware configuration and server setup before use. The firmware update is performed using the JLinkConfig utility, after which the JLinkGDBServer application provides the GDB server interface where it acts a bridge between GDB and the hardware. There exists a GUI for this tool, however, through testing, it has proven to be inflexible. In the instances where certain settings or physical connections are incorrect, the GUI will close automatically without giving the user an opportunity to try again. Therefore, for convenience sake, the command line is preferred for its supperior usability and reliability.
+
+\begin{tcolorbox}[
+    colback=black!5,     
+    colframe=black!75,   
+    title=J-Link EDU Command, 
+    arc=0mm,
+    boxrule=0.5pt,
+    left=2mm
+]
+\texttt{\$ /opt/SEGGER/JLink/JLinkGDBServer select USB -device RP2040\_M0\_0 -endian little -if SWD -speed 4000 -noir -LocalhostOnly -nologtofile -port 2331 -SWOPort 2332 -TelnetPort 2333}
+\end{tcolorbox}
+
+The command will print some helpful messages about the process as it goes through the entire checklist of steps. The configuration requires selecting the target device as "RP2040\_M0\_0" and the target interface as "SWD". All remaining settings can be left at their default values. For security purposes, enabling the "Localhost only" option is recommended to restrict GDB server access to local connections only, preventing unauthorised remote access.
+
+Unfortunately, the system demonstrated a high degree of unreliability during testing, primarily due to the quality of the physical connections between the target device and the debugging probe. The use of male-to-male DuPont wires on a breadboard introduced instability into the setup, making it difficult to maintain consistent electrical contact across the required signal lines. As a result, the SEGGER J-Link GDB Server repeatedly failed to detect the 3.3 volt reference signal from the Pico W, which is essential for establishing proper communication with the target. Without this reference voltage, the debugger is unable to determine the correct logic levels, effectively rendering the board undetectable from the software perspective.
+
+This issue manifested in the debugging process as repeated connection failures and stalled initialization attempts. Specifically, the GDB server would hang during the stage where it attempts to read and verify the target voltage, preventing any further progress in establishing a debugging session. In some instances, the process would terminate entirely after failing to complete this step, requiring manual intervention to restart the connection attempt. This behavior significantly hindered the usability of the debugging setup and made consistent testing impractical.
+
+A practical solution to this problem would involve improving the reliability and stability of the physical connections. One effective approach is the use of proper breakout boards or adapter modules that provide secure and well aligned pin interfaces for both the Pico W and the J-Link probe. These components reduce the likelihood of intermittent contact and ensure that critical signals, particularly ground and reference voltage, are consistently maintained. By replacing loose wiring with more robust connection methods, the overall stability of the debugging environment can be significantly improved, allowing the J-Link system to function as intended.
 
 \subsection{3D-printed Casing}
 Designing and producing a 3D-printed casing solution was paramount to ensuring that the Single Board Computer (SBC) and HAT board hardware was intergrated into a compact and durable debugging unit. The casing neeeded to be ergonomic, cheap and intuitive to use while providing the electronic components inside protection from damage that might occur during the usage of the  debugging unit. This requirement is reflected in the reinforced ridges along the chassis of the final casing that reduces the risk of cracking along the length of the case that might occur to accidental drops or abrasions.
 
-Parametric design using CAD software was therefore required to ensure that the design met the stringent requirements required to provide students with an effective debugging solution. The design philosophy used in this project prioritsed simplity and comfort above all else, and this is reflected in the final version of the case produced. For instance, a simple inverted dovetail lid was implemented in the design to replace a complex hinge-and-lock system that was present in earlier iterations. 
+Parametric design using CAD software was therefore an essential component of the development process, as it allowed the design to be systematically refined to meet the stringent functional and usability requirements associated with an effective educational debugging solution. By defining key dimensions and constraints as adjustable parameters, the design could be iteratively modified with precision, ensuring compatibility with the hardware while also accommodating practical considerations such as ease of assembly, durability, and user interaction. This approach enabled rapid evaluation of multiple design variations without requiring a complete redesign at each stage, which was particularly valuable given the need to balance technical performance with accessibility for student use.
+
+The overarching design philosophy adopted throughout the project placed a strong emphasis on simplicity and user comfort, prioritising these factors above more complex or feature-heavy alternatives. This focus was driven by the intended educational context, where reliability, ease of use, and intuitive handling are more beneficial than intricate mechanical features that may introduce unnecessary points of failure. As a result, design decisions consistently favoured straightforward geometries, minimal part counts, and ergonomic considerations that would allow students to interact with the device confidently and without additional instruction.
+
+\begin{figure}[ht]
+    \begin{center}
+      \includegraphics[width=0.8\textwidth]{early_case}
+    \end{center}
+    \caption{Early final version of the 3D-printed casing. Note the hinge-latch cover system.}
+    \label{fig:debug_case}
+\end{figure}
+
+This philosophy is clearly reflected in the final iteration of the enclosure, particularly in the implementation of a simple inverted dovetail lid mechanism. Earlier versions of the design incorporated a more complex hinge and locking system, which, while functional, introduced additional manufacturing complexity and potential durability concerns. By replacing this mechanism with an inverted dovetail interface, the design achieves secure closure through a purely geometric solution that is both robust and easy to manufacture. This not only reduces the likelihood of mechanical failure but also simplifies assembly and everyday use, aligning with the broader objective of creating a practical and reliable debugging tool for students.
 
 The overall cumulative cost of raw materials required for manufacturing represented another significant and non-trivial consideration that was carefully evaluated throughout the iterative design process, given that there existed a clearly identified need to potentially scale the deployment of the debugging platform. After careful evaluation of available manufacturing materials, and due to the favorable combination of affordability characteristics and relative structural durability properties, Polylactic Acid (PLA) thermoplastic filament was selected and designated as the chosen material from which the protective enclosure would be fabricated and produced. The design was additionally and deliberately optimized specifically for ease of manufacturing using commercially available and widely accessible fused deposition modeling (FDM) three-dimensional printing equipment that is commonly present in many professional fabrication facilities, educational institutions, and even home-based maker and fabrication set-ups. Through careful iterative optimization of the design geometry and thoughtful selection of print parameters, the final optimized design iteration achieved a remarkably efficient combined printing time of approximately two hours for the complete assembly and required only 26 grams of PLA filament material for the entire protective casing structure, metrics that clearly indicate and demonstrate a high level of successful optimization with regard to both print settings configuration and manufacturing best practices.
 
@@ -126,6 +180,6 @@ The overall cumulative cost of raw materials required for manufacturing represen
     \begin{center}
       \includegraphics[width=0.8\textwidth]{case}
     \end{center}
-    \caption{the final version of the 3D-printed casing.}
+    \caption{The final version of the 3D-printed casing.}
     \label{fig:debug_case}
 \end{figure}
