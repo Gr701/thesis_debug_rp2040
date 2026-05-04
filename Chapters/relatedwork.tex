@@ -12,7 +12,7 @@ The debugging process applied to the embedded devices is different, than the one
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{general.png}
+    \includegraphics[width=0.8\textwidth]{general}
     \caption{Debugging structure overview.}
     \label{fig:general_structure}
 \end{figure}
@@ -23,7 +23,7 @@ For general C or C++ projects, the process of automated debugging is typically c
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.4\textwidth]{gdb_structure.png} 
+    \includegraphics[width=0.5\textwidth]{gdb_structure} 
     \caption{GDB internal structure \cite{gdb_architecture}.}
     \label{fig:gdb_structure}
 \end{figure}
@@ -79,7 +79,7 @@ The hardware part of the probe can be implemented in two major ways. It can be e
 
 \begin{figure}[ht]
     \begin{center}
-        \includegraphics*[width=\textwidth]{cmsis\_dap\_interface.png}
+    \includegraphics*[width=\textwidth]{cmsis\_dap\_interface}
     \end{center}
     \caption{CMSIS-DAP interface \cite{cmsis_dap}.}
     \label{fig:cmsis_dap_interface}
@@ -92,7 +92,7 @@ Arm Debug Interface (ADI) architecture provides an access to the debug component
 
 \begin{figure}[ht]
     \begin{center}
-        \includegraphics*[width=\textwidth]{adiv5\_implementation.png}
+    \includegraphics*[width=\textwidth]{adiv5\_implementation}
     \end{center}
     \caption{ADIv5 implementation \cite{adi}.}
     \label{fig:adiv5_implementation}
@@ -107,7 +107,7 @@ The frame sent over the data line from the probe during the request phase of SWD
 
 \begin{figure}[ht]
     \begin{center}
-      \includegraphics*[width=\textwidth]{debug\_flush\_process}
+    \includegraphics*[width=\textwidth]{debug\_flush\_process}
     \end{center}
     \caption{The flush process during debugging.}
     \label{fig:debug_flush_process}
@@ -175,7 +175,7 @@ To make the connecting process more consumer-friendly, the official Raspberry Pi
 
 \begin{figure}[ht]
     \begin{center}
-      \includegraphics*[width=\textwidth]{debugprobe}
+    \includegraphics*[width=\textwidth]{debug\_probe}
     \end{center}
     \caption{the official Raspberry Pi Debug Probe \cite{debugprobe_docs}.}
     \label{fig:debugprobe}
@@ -200,7 +200,7 @@ RP2040 chip has two Arm cores and provides an ability to control the SWD interfa
 
 \begin{figure}[ht]
     \begin{center}
-      \includegraphics*[width=\textwidth]{rp2040\_debug.png}
+    \includegraphics*[width=\textwidth]{rp2040\_debug}
     \end{center}
     \caption{RP2040 debug topology \cite{raspberry_rp2040}.}
     \label{fig:rp2040_debug}
@@ -210,7 +210,7 @@ RP2350 chip has a more complicated debug topology depicted in \figref{fig:rp2350
 
 \begin{figure}[ht]
     \begin{center}
-      \includegraphics*[width=\textwidth]{rp2350\_debug.png}
+    \includegraphics*[width=\textwidth]{rp2350\_debug}
     \end{center}
     \caption{RP2350 debug topology \cite{raspberry_rp2350}.}
     \label{fig:rp2350_debug}
