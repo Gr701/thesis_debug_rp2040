@@ -237,12 +237,19 @@ J-Link probes support advanced debugging features including Real Time Transfer (
 
 521287A Introduction to Computer Systems is a degree level course that explains how a computer works as a complete stack, moving from high-level programs down to hardware in a conceptual and beginner-friendly way. It is a foundational course that is essential for prospective students wishing to advance to 521286A Computer Systems where the concepts are delved at a much deeper and more technical level, focusing on how these mechanisms are implemented and how they affect performance and functionality. While separate courses, they share the same course content at first as the two are implemented simultaneously, with students of both courses using the TKJHAT to experiment and derive solutions to complex problems presented to them during the implementation time of the courses.
 
-The TKJHAT itself is an open-source, open-hardware, Hardware Attached on Top (HAT) platform designed by members of the Faculty of Information Technology and Electrical Engineering to support IoT and embedded systems education in the University of Oulu through the aforementioned courses. The development of this platform was driven by specific requirements identified through systematic evaluation: affordability (under 60€ per student), customizability to meet evolving teaching needs, easy integration into multiple courses, alignment with industry standards, Real-Time Operating System (RTOS) support, and wireless connectivity capabilities \cite{kelhala:2024}. 
+The TKJHAT itself is an open-source, open-hardware, Hardware Attached on Top (HAT) platform designed for the Raspberry Pi Pico W by members of the Faculty of Information Technology and Electrical Engineering to support IoT and embedded systems education in the University of Oulu through the aforementioned courses. The development of this platform was driven by specific requirements identified through systematic evaluation: affordability (under 60€ per student), customizability to meet evolving teaching needs, easy integration into multiple courses, alignment with industry standards, Real-Time Operating System (RTOS) support, and wireless connectivity capabilities \cite{kelhala:2024}.
+
+\begin{figure}[ht]
+    \begin{center}
+    \includegraphics*[width=0.45\textwidth]{tkjhat}
+    \end{center}
+    \caption{TKJHAT HAT board with display screen attached.}
+    \label{fig:tkjhat}
+\end{figure}
 
 The platform selection process involved a comprehensive systematic review of scientific literature and discourse analysis, evaluating alternatives including the nRF52-DK, STM Nucleo-64 family, Raspberry Pi Pico W, and Micro:bit v2 \cite{bscstudies}. The Raspberry Pi Pico W was ultimately selected as the base platform due to its optimal balance of price, functionality, strong community support, extensive input/output connections, wireless connectivity options, and compatibility with open-source development tools \cite{bscstudies,kelhala:2024}. 
 
-The HAT platform was developed on top
-of the Raspberry Pi Pico W and FreeRTOS with a diverse and multifaceted array of peripheral devices built in to extend the Pi from a general-purpose computer into a real-world measurement and control system that students can use effectively. FreeRTOS was selected as the RTOS after evaluating several alternatives including Zephyr RTOS, MbedOS, Kiel, and Riot \cite{kelhala:2024}. The selection criteria prioritized: (1) intuitive functions that expose hardware aspects without excessive abstraction, (2) thorough and easily accessible documentation, (3) ease of IDE installation and configuration with straightforward debugging capabilities, and (4) support for basic OS concepts such as tasks, mutexes, and I/O operations \cite{kelhala:2024}.
+The HAT platform was developed on top of the Raspberry Pi Pico W and FreeRTOS with a diverse and multifaceted array of peripheral devices built in to extend the Pi from a general-purpose computer into a real-world measurement and control system that students can use effectively. FreeRTOS was selected as the RTOS after evaluating several alternatives including Zephyr RTOS, MbedOS, Kiel, and Riot \cite{kelhala:2024}. The selection criteria prioritized: (1) intuitive functions that expose hardware aspects without excessive abstraction, (2) thorough and easily accessible documentation, (3) ease of IDE installation and configuration with straightforward debugging capabilities, and (4) support for basic OS concepts such as tasks, mutexes, and I/O operations \cite{kelhala:2024}.
 
 FreeRTOS emerged as the preferred choice due to its simplest API, excellent documentation with detailed usage examples, widespread industry adoption (equipping students with directly applicable skills), and straightforward development flow requiring only minimal files to get started \cite{kelhala:2024}. Applications can be easily built using C and CMake, with support extending to a wide set of architectures and microcontrollers. This stands in stark contrast with alternatives like Zephyr, which, while powerful, provides more complex tooling and documentation better suited for students with existing embedded development experience \cite{kelhala:2024}.
 
@@ -250,26 +257,22 @@ The development environment utilizes Visual Studio Code with the Cortex-Debug ex
 
 The peripherals present in the TKJHAT reflect its educational design philosophy of balancing simplicity for beginners while maintaining access to low-level hardware functionality for advanced learners \cite{kelhala:2024} and are interfaced in two different ways: via General-Purpose Input/Output (GPIO) pins and Inter-Integrated Circuit ($\text{I}^2\text{C}$) buses.
 
-Peripherals connected via $\text{I}^2\text{C}$ include:
-
-\begin{itemize}
-    \setlength\itemsep{0pt}
-    \setlength\parskip{0pt}
-    \item Ambient light sensor (VEML6030)
-    \item Temperature \& Humidity sensor (HDC2021)
-    \item Inertial measurement unit - IMU (ICM-42670, accelerator and gyroscope)
-    \item Organic light emitting diode - OLED display (SSD1306)
-\end{itemize}
-
-Peripherals connected via GPIO pins include:
-
-\begin{itemize}
-    \setlength\itemsep{0pt}
-    \setlength\parskip{0pt}
-    \item Two light emitting diodes - LEDs: one red LED (1206 2.1V) and one red-green-blue - RGB LED (CLV1A-FKB-CK1VW1DE1BB7C3C3)
-    \item A buzzer (PKM13EPYH4000-A0)
-    \item A Pulse Density Modulation - PDM, Micro-Electro-Mechanical Systems - MEMS microphone (ICS-41350)
-\end{itemize} 
+\begin{table}[H]
+    \resizebox{\textwidth}{!}{\begin{tabular}{|l|}
+        \hline
+        \textbf{$\text{I}^2\text{C}$} \\ \hline
+        Ambient light sensor (VEML6030) \\
+        Temperature \& Humidity sensor (HDC2021) \\
+        Inertial measurement unit - IMU (ICM-42670, accelerator and gyroscope) \\
+        Organic light emitting diode - OLED display (SSD1306) \\ \hline
+        \textbf{GPIO} \\ \hline
+        Red LED (1206 2.1V) \\
+        Red-green-blue LED - RGB LED (CLV1A-FKB-CK1VW1DE1BB7C3C3) \\
+        Buzzer (PKM13EPYH4000-A0) \\
+        Pulse Density Modulation - PDM, Micro-Electro-Mechanical Systems - MEMS microphone (ICS-41350) \\ \hline
+        \end{tabular}}
+    \caption{Peripherals on the TKJHAT connected via $\text{I}^2\text{C}$ buses and GPIO pins.}
+    \end{table}
 
 The peripherals present that need simple, fast, one-bit control use GPIO, while peripherals that are complex sensors or multi-function chips use I²C so they can exchange structured data efficiently over a shared bus. Ideally, with the two mechanisms shown, students will also come to understand the advantages and disadvantages in both protocols and will have the knowledge to know when to choose each in real system design. This hands-on approach aligns with established teaching approaches, as physical interaction with hardware enables students to develop deeper understanding of hardware limitations and system constraints than simulation alone could provide.
 
