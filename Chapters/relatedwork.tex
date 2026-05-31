@@ -4,6 +4,8 @@ In this thesis we will focus on the computing platforms developed by Raspberry P
 
 The Pico family is the group of Raspberry Pi microcontroller boards. It started in 2021 with Pico 1 series, which is built around the RP2040 silicon platform and includes 264KB on-chip RAM, 2MB on-board flash and Dual-core Arm Cortex-M0+ running at 133MHz frequency \cite{raspberry_pico_1}. The first series includes Pico, Pico H, Pico W, and Pico WH boards, where H stands for the presoldered headers, and W for the present wireless connectivity option. In 2024 the family got an update with the second series, including Pico 2 and Pico 2 W boards. New microcontrollers have twice the amount of RAM and flash of the first series, and the ability for the users to choose between the dual Arm Cortex-M33 and the dual RISC-V Hazard3 architechtures both running at 150MHz \cite{raspberry_pico_2}. All Pico family boards are programmable in C and MicroPython.
 
+Especially Pico family boards became increasingly popular in the education. David Loker in "Embedded Systems using the Raspberry Pi Pico" \cite{loker} explores in detail the course setup and possible educational projects with Pico boards. Through a questionnaire he shows that students also welcome the opportunity to use Pico during their studies. A group from Hellenic University got similar results in their work - "Teaching Embedded Systems and IoT at the University using MicroPython and Raspberry Pi Pico", where they presented a set of lessons built around Pico \cite{doropoulou}. University of Oulu has several courses where the Pico boards are used. We will take a closer look at the environment set up for the Embedded System course, which we will work with, in the section 2.5 below.
+
 \section{Debugging theory}
 
 The debugging is the integral part of the software development process. Its purpose is to ensure proper functioning and the performance of the software. There are different aproaches to debugging, with the simplest one being just printing the program values to the output terminal. In this thesis however, we will focus on the automated debugging with the extended control over the program's execution, which allows the programmer to use the break points, step one line at a time through the code, and monitor the values of the registers, variables, and expressions throughout the process.
@@ -83,9 +85,9 @@ Whilst alternatives like pyOCD and EDBG were considered, they were rejected, as 
 
 \subsection{Probe}
 
-The next component in the pipeline is the probe. It serves as the translator between the digital commands - USB packets from OpenOCD (or another GDB server), and the electrical signals, which are then sent over the wires connected to the pins of the debugging port of the microcontroller board. There are protocols to standardize this communication, and one of them is CMSIS-DAP - an open standard described by Arm \cite{cmsis_dap}. It stands for the Common Microcontroller Software Interface Standard - Debug Access Port. Additionally to the protocol, it provides the template implementation of the concept \cite{cmsis_dap}. Its illustraion can be seen in \figref{fig:cmsis_dap_interface}. DAPLink is another implementaion of CMSIS-DAP. Moreover, there are proprietary protocols and their implementations, such as ST-Link by STMicroelectronics and J-Link by Segger \cite{zephyr_probes}.
+The next component in the pipeline is the probe. It serves as the translator between the digital commands - USB packets from OpenOCD (or another GDB server), and the electrical signals, which are then sent over the wires connected to the pins of the debugging port of the microcontroller board. There are protocols to standardize this communication, and one of them is CMSIS-DAP - an open standard described by Arm \cite{cmsis_dap}. It stands for the Common Microcontroller Software Interface Standard - Debug Access Port. Additionally to the protocol, it provides the template implementation of the concept \cite{cmsis_dap}. Its illustraion can be seen in \figref{fig:cmsis_dap_interface}. DAPLink is another implementaion of CMSIS-DAP. Moreover, there are proprietary protocols and their implementations, such as ST-Link by STMicroelectronics and J-Link by Segger \cite{zephyr_probes}, and free and open implementations, such as Free-DAP \cite{free_dap}.
 
-The hardware part of the probe can be implemented in two major ways. It can be either a separate board, or a second microcontroller integrated into the board, which is being debugged \cite{zephyr_probes}. To communicate with the host machine, the probe is connected to it via USB, IP network, or other means \cite{zephyr_probes}. 
+The hardware part of the probe can be implemented in two major ways. It can be either a separate board, or a second microcontroller integrated into the board, which is being debugged \cite{zephyr_probes}. In this work we will implement, test, and compare these two approaches. To communicate with the host machine, the probe is connected to it via USB, IP network, or other means \cite{zephyr_probes}. 
 
 \begin{figure}[ht]
     \begin{center}
@@ -110,7 +112,7 @@ Arm Debug Interface (ADI) architecture provides an access to the debug component
 
 \subsection{SWD}
 
-Serial Wire Debug (SWD) is the protocol used for Serial Wire - Debug Port (SW-DP) implementation of the DP. It is a serial, packet-based interface utilizing two pins: one for the bidirectional data connection, and the other one is for the clock, to synchronize the communication \cite{adi}. The operation on the wire has three main phases: packet request from the probe, acknowledgement response from the ADI, and the optional data transfer, either from the probe to ADI or vice versa \cite{adi}. Since all the communication happens on one line, there are turnaround periods between the phases, when one party has released the data line already, but the other party didn't take the control over it yet. It prevents the conflicts and during these periods the state of the line is undefined \cite{adi}.
+Serial Wire Debug (SWD) is the protocol used for Serial Wire - Debug Port (SW-DP) implementation of the DP. There is another option for that: JTAG, which is described in the next section. It is a serial, packet-based interface utilizing two pins: one for the bidirectional data connection, and the other one is for the clock, to synchronize the communication \cite{adi}. The operation on the wire has three main phases: packet request from the probe, acknowledgement response from the ADI, and the optional data transfer, either from the probe to ADI or vice versa \cite{adi}. Since all the communication happens on one line, there are turnaround periods between the phases, when one party has released the data line already, but the other party didn't take the control over it yet. It prevents the conflicts and during these periods the state of the line is undefined \cite{adi}.
 
 The frame sent over the data line from the probe during the request phase of SWD is 8 bits long and has the information about the address of the register being accessed and whether it is a read or a write operation \cite{adi}. The acknowledgement frame is only 3 bits long: one per OK, WAIT, and FAULT statuses, while the data frame is 32 bits long \cite{adi}.
 
@@ -194,7 +196,7 @@ After the Pico-to-Pico connections are properly establised, and the debugger pic
 
 \subsection{second core debugger}
 
-RP2040 chip has two Arm cores and provides an ability to control the SWD interface pins of both Core 0 and Core 1 from inside the chip \cite{raspberry_rp2040}. It means that we can manipulate the debug process of one core with the software running on the second core. Therefore, this approach eliminates the need for the external hardware. Its implementation involves a dedicated register - DBGFORCE, in the SYSCFG block of registers, and it has 8 bits - 4 bits per core, to control the debugging \cite{raspberry_rp2040}. The bits include:
+RP2040 chip has two Arm cores and provides an ability to control the SWD interface pins of both Core 0 and Core 1 from inside the chip \cite{raspberry_rp2040}. It means that we can manipulate the debug process of one core with the software running on the second core. Therefore, this approach eliminates the need for the external hardware, but disallows us to use both cores for the application. Its implementation involves a dedicated register - DBGFORCE, in the SYSCFG block of registers, and it has 8 bits - 4 bits per core, to control the debugging \cite{raspberry_rp2040}. The bits include:
 
 \begin{itemize}
     \setlength\itemsep{0pt}
@@ -222,6 +224,8 @@ RP2350 chip has a more complicated debug topology depicted in \figref{fig:rp2350
     \caption{RP2350 debug topology \cite{raspberry_rp2350}.}
     \label{fig:rp2350_debug}
 \end{figure}
+ 
+For both chips the implementation is present (\cite{pico_debug} and \cite{pico2_debug} respectively) and will be looked at closer in the Implementation part of this thesis.
 
 \subsection{Black Magic Probe}
 
