@@ -1,71 +1,78 @@
 \section{Virtual Machine and Container}
-To consistently replicate the software environment needed for debugging across diverse computing infrastructures, two approaches were considered: Virtual Machines and Containers.
+To consistently replicate the software environment needed for debugging the TKJHAT platform across diverse computing infrastructures, we implemented two host-side environments: Virtual Machines and Containers. In the context of our overall debugging pipeline (detailed in Figure \ref{fig:general_structure}), these software environments represent the setup of the host computer, which resides at the left-most boundary of the system.
 
 To ensure toolchain parity, both environments are based on the Debian Linux family. The container uses a lightweight Debian 12 (Bookworm) image to minimise memory footprint and boot times \cite{rosen_namespaces_slides}. Conversely, the Virtual Machine utilises Debian 13 (Trixie) to support modern desktop packages and hardware drivers for the graphical interface. Both maintain strict operational consistency despite these version differences.
 
 A functional debugging setup requires a software stack running on top of the operating system. The software stack used can be divided into four categories:
 
-\begin{itemize}
-    \item \textbf{Compiler Toolchain:} The suite of softwares needed to compile C/C++ source code into machine-readable binaries (e.g., UF2, ELF). The compile toolchain's components used for this thesis are \texttt{gcc-arm-none-eabi} cross-compilation infrastructure, which includes \texttt{libnewlib-arm-none-eabi} and \texttt{libnewlib-dev}, used as they provide the standard C library implementation, including memory management, mathematical functions, and system call stubs required for embedded I/O operations. To support the compilation infrastructure, \texttt{CMake} serves as the build system, and \texttt{Ninja} as the generator. Together, they provide a versatile and reliable framework for the Computer System course project and for more advanced embedded systems projects.
+\begin{description}
+    \item[Compiler Toolchain:] The suite of softwares needed to compile C/C++ source code into machine-readable binaries (e.g., UF2, ELF). The compile toolchain's components used for this thesis are \texttt{gcc-arm-none-eabi} cross-compilation infrastructure, which includes \texttt{libnewlib-arm-none-eabi} and \texttt{libnewlib-dev}, used as they provide the standard C library implementation, including memory management, mathematical functions, and system call stubs required for embedded I/O operations. To support the compilation infrastructure, \texttt{CMake} serves as the build system, and \texttt{Ninja} as the generator. Together, they provide a versatile and reliable framework for the Computer System course project and for more advanced embedded systems projects.
     
-    \item \textbf{Middleware and SDKs:} To unlock all the features supported by the Raspberry Pi Pico platform and complex task management features, the environments also came prepared with Pico and FreeRTOS SDK. These provide the essential hardware abstraction and real-time scheduling capabilities required to support the course's embedded systems projects.
+    \item[Middleware and SDKs:] To unlock all the features supported by the Raspberry Pi Pico platform and complex task management features, the environments also came prepared with Pico and FreeRTOS SDK. These provide the essential hardware abstraction and real-time scheduling capabilities required to support the course's embedded systems projects.
     
-    \item \textbf{Development Interface:} To provide a familiar but versatile interface for project development, VS Code was selected for its ecosystem and flexibility, serving as the standardised IDE for the course. Alongside the main IDE, helper extensions are installed to provide effective interaction between the IDE and the development platform:
-    
-    \begin{itemize}
-    \item \textbf{Cortex-Debug:}\label{sec:cortex_debug_def} Facilitates GDB-based debugging, enabling step-through execution and register-level inspection.
-    \item \textbf{Raspberry Pi Pico:} Provides essential SDK management and project configuration utilities.
-    \item \textbf{Pico-Debug-Dashboard:} A custom-made extension with the intention of unifying how VS Code invokes the compiler toolchain and speaks with the hardware. Supports features such as:
+    \item[Development Interface:] To provide a familiar but versatile interface for project development, VS Code was selected for its ecosystem and flexibility, serving as the standardised IDE for the course. Alongside the main IDE, helper extensions are installed to provide effective interaction between the IDE and the development platform:
     
     \begin{itemize}
-    \item \textbf{Automated Project Bootstrapping:} Instant initialization of standardized project structures, including \texttt{CMake}, \texttt{FreeRTOS}, and debug configurations.
-    \item \textbf{Dynamic Build Configuration:} Real-time switching between RP2040 and RP2350 target architectures and debug modes (1-core vs 2-core SMP) via the status bar.
-    \item \textbf{Integrated Build Orchestration:} Single-click access to \texttt{Ninja} build processes, \texttt{GDB} flash deployment, and \texttt{Picotool} operations.
-    \item \textbf{Hardware Lifecycle Management:} Centralised controls for hardware resets, BOOTSEL re-entry, and low-level firmware injection (\texttt{pico-debug} RAM-loading).
-    \item \textbf{System Telemetry:} Real-time visual monitoring of USB bus states and debugger connectivity directly from the IDE status bar.
-    \end{itemize}
-
+        \item \textbf{Cortex-Debug:}\label{sec:cortex_debug_def} Facilitates GDB-based debugging, enabling step-through execution and register-level inspection.
+        \item \textbf{Raspberry Pi Pico:} Provides essential SDK management and project configuration utilities.
+        \item \textbf{Pico-Debug-Dashboard:} A custom-made extension designed to unify how VS Code invokes the compiler toolchain and communicates with the hardware. A detailed breakdown of its features, design, and graphical user interface is provided in Section \ref{sec:pico_debug_dashboard} \cite{pico_debug_dashboard}.
     \end{itemize}
     
-    \item \textbf{Connectivity and Drivers:} The software components that bridge the host machine with the microcontroller. This includes OpenOCD as the GDB-to-CMSIS-DAP server and USB/HID drivers (such as \texttt{libhidapi} and \texttt{libusb}) required to maintain communication with the debug probe.
-\end{itemize}
+    \item[Connectivity and Drivers:] The software components that bridge the host machine with the microcontroller. This includes OpenOCD as the GDB-to-CMSIS-DAP server and USB/HID drivers (such as \texttt{libhidapi} and \texttt{libusb}) required to maintain communication with the debug probe.
+\end{description}
 
 All software components, including toolchain binaries, SDK releases, and debugging middleware, were configured according to their respective official documentation and established best practices and efforts were made to harmonise the configuration parameters across both the virtual machine and containerised environments. This is to ensure that any observed differences in performance or usability could be attributed strictly to the underlying virtualisation architecture.
 \subsection{Virtual Machine Implementation}
 Unlike containers, standard VM software supports USB passthrough natively, allowing the hypervisor to redirect the physical USB debug probe directly into the guest virtual environment. Additionally, because the VM runs a full desktop environment, students utilise the standard Visual Studio Code application, which enjoys full access to the official Microsoft Marketplace. This allows students to use the native Microsoft Serial Monitor extension as an integrated tool, whilst keeping Minicom available as a terminal-based serial console fallback.
 
 \subsection{Containerisation Implementation}
-As graphical interfaces are not natively supported in Docker containers, \texttt{code-server} is used in place of the original VS Code to provide a browser-based equivalent, ensuring a consistent user experience while maintaining the isolation and reproducibility of containerised environments. However, because \texttt{code-server} is limited to the Open VSX Registry, the Microsoft Serial Monitor extension is unavailable in this web-based environment. To maintain a consistent workflow, Minicom is used as a terminal-based alternative to provide consistent monitor support, with one-click status bar initialisation supported by the Pico-Debug-Dashboard extension.
+As graphical interfaces are not natively supported in Docker containers, \texttt{code-server} is used in place of the original VS Code to provide a browser-based equivalent, ensuring a consistent user experience while maintaining the isolation and reproducibility of containerised environments \cite{code_server}. However, because \texttt{code-server} is limited to the Open VSX Registry, the Microsoft Serial Monitor extension is unavailable in this web-based environment. To maintain a consistent workflow, Minicom is used as a terminal-based alternative to provide consistent monitor support, with one-click status bar initialisation supported by the Pico-Debug-Dashboard extension.
 
 Furthermore, container port forwarding, device mapping, and privilege controls are managed dynamically via a \texttt{docker-compose} configuration \cite{docker_compose_docs}. On native Linux host systems, Docker can access the physical USB bus directly by mounting device volumes (such as \texttt{/dev/bus/usb} and serial \texttt{/dev/ttyACM*} ports) under a privileged container state. However, on Windows host systems, physical USB devices are owned by the host OS and cannot be shared natively. To resolve this, the \texttt{usbipd} utility must be installed on the Windows host to redirect physical USB devices to the Windows Subsystem for Linux (WSL2) \cite{docker_wsl_docs, dorssel_usbipd_win}. \texttt{usbipd} functions by encapsulating USB traffic within TCP/IP packets, thereby overcoming the physical device isolation of the virtualised WSL2 kernel and allowing the container's volume mappings to mount the debug probe natively \cite{docker_wsl_docs}. To make \texttt{usbipd} easier to use, a specialised script is provided to help users automatically initialise and manage the tool.
+\subsection{Pico-Debug-Dashboard Extension}
+\label{sec:pico_debug_dashboard}
+We developed a custom Visual Studio Code extension, the \texttt{Pico-Debug-Dashboard}, because the official CMake and Raspberry Pi extensions cluttered the IDE's status bar with too many inconvenient buttons, lacked support for the \texttt{pico-debug} second-core debugger, and frequently caused student configuration errors by requiring manual selection of compiler "kits" and build "variants" \cite{pico_getting_started, pico_debug, pico_debug_dashboard}. Written in TypeScript, our extension unifies these tools into a single, clean interface (illustrated in Figure \ref{fig:vscode_dashboard}). It automates project bootstrapping, build setups, and flashing via GDB or the official \texttt{picotool} utility, utilised to flash and query Raspberry Pi microcontrollers over USB \cite{picotool_github}, by executing raw, pre-configured terminal commands directly in the background. Crucially, the extension dynamically monitors the host's USB bus to detect whether a standard Pico, an official DebugProbe, or a virtual \texttt{pico-debug} probe is connected, displaying the real-time hardware status directly on the status bar.
+
+% \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.9\textwidth]{vscode_dashboard_ui} 
+%     \caption{The custom-developed \texttt{Pico-Debug-Dashboard} user interface integrated within the Visual Studio Code workspace, displaying real-time system telemetry and compilation shortcuts.}
+%     \label{fig:vscode_dashboard}
+% \end{figure}
 %[1] https://lovelace.oulu.fi/tietokonej%C3%A4rjestelm%C3%A4t/tietokonej%C3%A4rjestelm%C3%A4t/tkj-virtual-machine-download-and-history/
 
 \section{Probe implementations}
-\subsection{Second RP2040/RP2350 implementation}
+\subsection{Second Pico Implementation}
 
-The second board implementation utilises an additional RP-based microcontroller device as a dedicated hardware debugger. Now referred to as the probe, the device is flashed with the \texttt{debugprobe.uf2} firmware, turning it into a composite USB device that supports both the ARM CMSIS-DAP protocol for debugging and a Communication Device Class (CDC) interface for serial console monitoring. Physical connections between the probe and the target device are established via a 5-pin debug header, providing the necessary SWD signals and the bidirectional UART bridge needed for console output (see Box \ref{box:picoprobe-wiring} on page \pageref{box:picoprobe-wiring}). Once the connection between the probe and the host machine is established via USB, the debugging session can be initialised through VS Code or by manually initialising the GDB-to-OpenOCD-to-Probe pipeline through a terminal environment with commands\cite{pico_getting_started}:
-
-\begin{tcolorbox}[
-    colback=black!5,     
-    colframe=black!75,   
-    title=OpenOCD Initialization Command, 
-    arc=0mm,
-    boxrule=0.5pt,
-    left=2mm
+The second board implementation utilises an additional RP-based microcontroller device as a dedicated hardware debugger. Now referred to as the probe, the device is flashed with the \texttt{debugprobe.uf2} firmware, turning it into a composite USB device that supports both the ARM CMSIS-DAP protocol for debugging and a Communication Device Class (CDC) interface for serial console monitoring. Physical connections between the probe and the target device are established via a 5-pin debug header, providing the necessary SWD signals and the bidirectional UART bridge needed for console output (see page \pageref{box:picoprobe-wiring}). Once the connection between the probe and the host machine is established via USB, the debugging session can be initialised through VS Code or by manually initialising the GDB-to-OpenOCD-to-Probe pipeline through a terminal environment with commands\cite{pico_getting_started}:
+\begin{lstlisting}[
+    language=bash,
+    caption={OpenOCD Initialisation Command},
+    label={lst:openocd_init},
+    frame=single,
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    mathescape=false
 ]
-\texttt{\$ sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000"}
-\end{tcolorbox}
+$ sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000"
+\end{lstlisting}
 
-For a RP2350-based device use \texttt{-f target/rp2350.cfg} instead.
+For an RP2350-based device, use \texttt{-f target/rp2350.cfg} instead.
 
 Subsequently, the \texttt{GDB} client is invoked to link the debug symbols to the remote target:
 
-\begin{tcolorbox}[title=GDB Client Initialization, colback=gray!5, colframe=black!75]
-\begin{verbatim}
-$ gdb-multiarch  <project_name>.elf
+\begin{lstlisting}[
+    language=bash,
+    caption={GDB Client Initialisation},
+    label={lst:gdb_init},
+    frame=single,
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    mathescape=false
+]
+$ gdb-multiarch <project_name>.elf
 (gdb) target remote localhost:3333
-\end{verbatim}
-\end{tcolorbox}
+\end{lstlisting}
 Once the debugging pipeline is properly initialised, the platform provides a robust environment for system diagnostics, supporting a comprehensive set of \texttt{GDB} and \texttt{OpenOCD} features for hardware-level control:
 \begin{itemize}
 \item \textbf{Instruction-Level Control:} Enables precise program flow management through \texttt{step-into}, \texttt{step-over}, and \texttt{continue} operations, allowing the developer to isolate logic errors at the assembly or source code level.

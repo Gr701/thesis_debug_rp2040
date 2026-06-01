@@ -37,20 +37,22 @@ Since there are several candidates for the implementation of the probe, we will 
 \end{table}
 
 \subsection{Quantitative metrics}
-
-The first metric considered is the \textbf{price of the hardware}. That is,  
-
-Next factor we will consider is the \textbf{time to produce} the probe, which includes the printing time of the case for the given probe and the time for soldering and other assembling activities.   
-
-The third quantative metric is the \textbf{physical size} of the final result. That is the size of the casing together with the TKJHAT and the probe. We will also consider the virtual size as a separate metric. It can be refered as \textbf{debug overhead} metric and it estimates the load on the CPU, memory and time consumption added by the debugger. While it might be one the most crucial metrics when working on big and complicated projects, it only takes secondary position in our research, since most of the projects at the entry level course are quite simple and compact.
-
-
-
-    Slowdown Factor: Often measured in production debugging, this is the ratio of execution time with the debugger active vs. inactive (e.g., a "10x–100x slowdown" in intensive debugging scenarios).
-
-    Memory Access Speed: The speed at which a debugger reads/writes data to the target system, crucial for embedded processors.
-
-    Breakpoint Latency: Time taken to halt execution when a breakpoint is hit. 
+To objectively evaluate and compare the physical and technical performance of each probe candidate, we established the following seven quantitative metrics:
+\begin{itemize}
+    \item \textbf{Price of the Hardware}: The first metric considered is the price of the hardware. That is, the price of the plastic or other materials used for the casing, which would fit the TKJHAT and the probe together, as well as the price of the additional microcontrollers, boards, and wires used in the design. Since tens of debugger units are required by the course, the price of each one is a significant detail.
+    
+    \item \textbf{Time to Produce}: Next factor we will consider is the time to produce the probe, which includes the printing time of the case for the given probe and the time for soldering and other assembling activities.   
+    
+    \item \textbf{Physical Size}: The third quantitative metric is the physical size of the final result. That is the size of the casing together with the TKJHAT and the probe. 
+    
+    \item \textbf{Debug Overhead}: We will also consider the virtual size as a separate metric. It can be referred to as the debug overhead metric, and it estimates the load on the CPU, memory, and time consumption added by the debugger. While it might be one of the most crucial mectrics when working on big and complicated projects, it only takes a secondary position in our research, since most of the projects at the entry-level course are quite simple and compact.
+    
+    \item \textbf{Slowdown Factor}: Often measured in production debugging, this is the ratio of execution time with the debugger active vs. inactive (e.g., a "10x–100x slowdown" in intensive debugging scenarios).
+    
+    \item \textbf{Memory Access Speed}: The speed at which a debugger reads/writes data to the target system, crucial for embedded processors.
+    
+    \item \textbf{Breakpoint Latency}: Time taken to halt execution when a breakpoint is hit.
+\end{itemize}
 
 \subsection{Qualitative metrics}
 
