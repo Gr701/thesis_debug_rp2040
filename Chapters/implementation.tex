@@ -33,13 +33,12 @@ Furthermore, container port forwarding, device mapping, and privilege controls a
 \label{sec:pico_debug_dashboard}
 We developed a custom Visual Studio Code extension, the \texttt{Pico-Debug-Dashboard}, because the official CMake and Raspberry Pi extensions cluttered the IDE's status bar with too many inconvenient buttons, lacked support for the \texttt{pico-debug} second-core debugger, and frequently caused student configuration errors by requiring manual selection of compiler "kits" and build "variants" \cite{pico_getting_started, pico_debug, pico_debug_dashboard}. Written in TypeScript, our extension unifies these tools into a single, clean interface (illustrated in Figure \ref{fig:vscode_dashboard}). It automates project bootstrapping, build setups, and flashing via GDB or the official \texttt{picotool} utility, utilised to flash and query Raspberry Pi microcontrollers over USB \cite{picotool_github}, by executing raw, pre-configured terminal commands directly in the background. Crucially, the extension dynamically monitors the host's USB bus to detect whether a standard Pico, an official DebugProbe, or a virtual \texttt{pico-debug} probe is connected, displaying the real-time hardware status directly on the status bar.
 
-% \begin{figure}[ht]
-%     \centering
-%     \includegraphics[width=0.9\textwidth]{vscode_dashboard_ui} 
-%     \caption{The custom-developed \texttt{Pico-Debug-Dashboard} user interface integrated within the Visual Studio Code workspace, displaying real-time system telemetry and compilation shortcuts.}
-%     \label{fig:vscode_dashboard}
-% \end{figure}
-%[1] https://lovelace.oulu.fi/tietokonej%C3%A4rjestelm%C3%A4t/tietokonej%C3%A4rjestelm%C3%A4t/tkj-virtual-machine-download-and-history/
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{vscode_dashboard_ui} 
+    \caption{The custom \texttt{Pico-Debug-Dashboard} interface within VS Code. The sidebar panel (top-left) manages project bootstrapping and configuration template syncing. The blue status bar (bottom-left) provides quick-action buttons for building, flashing, and serial console monitoring, whilst the telemetry status item (bottom-right) dynamically displays the connected hardware connection state.}
+    \label{fig:vscode_dashboard}
+\end{figure}
 
 \section{Probe implementations}
 \subsection{Second Pico Implementation}

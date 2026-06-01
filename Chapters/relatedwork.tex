@@ -185,7 +185,12 @@ To make the connecting process more consumer-friendly, the official Raspberry Pi
 Whilst simulating the official Debug Probe's JST-SH connectors was considered, it was rejected due to cost and mass-installation constraints. Instead, we utilised standard 2.54\,mm GPIO pins soldered directly into the Pico's SWD ports to provide a cheap, robust, and easily mass-produced connection.
 
 After the Pico-to-Pico connections are properly established, and the debugger Pico is connected to the host computer via USB, the debugging session is initiated by launching OpenOCD on the host computer, which is configured to communicate with the physical probe via the CMSIS-DAP protocol whilst loading the appropriate target configuration file (such as \texttt{target/rp2040.cfg}) \cite{pico_getting_started}. Once OpenOCD detects the target, it acts as a translation server and opens a local network port (typically 3333). The developer then starts GDB with the compiled \texttt{.elf} file and connects to OpenOCD via the \texttt{target extended-remote localhost:3333} command. This completes the pipeline, granting full hardware-level control, such as flashing firmware, setting breakpoints, and stepping through code, and concurrently monitoring the target's serial output \cite{pico_getting_started}.
-
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{picoprobe} 
+    \caption{Physical wiring schematic between the debugger Pico (Pico A) and the target Pico (Pico B), generated using Fritzing. The diagram illustrates the five core jumper connections (SWD and UART) alongside independent USB power connections to the host computer.}
+    \label{fig:picoprobe}
+\end{figure}
 \subsection{second core debugger}
 
 RP2040 chip has two Arm cores and provides an ability to control the SWD interface pins of both Core 0 and Core 1 from inside the chip \cite{raspberry_rp2040}. It means that we can manipulate the debug process of one core with the software running on the second core. Therefore, this approach eliminates the need for the external hardware, but disallows us to use both cores for the application. Its implementation involves a dedicated register - DBGFORCE, in the SYSCFG block of registers, and it has 8 bits - 4 bits per core, to control the debugging \cite{raspberry_rp2040}. The bits include:
