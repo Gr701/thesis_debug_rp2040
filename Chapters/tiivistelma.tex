@@ -1,8 +1,15 @@
 % Määrittele avainsanat main.tex:ssä ja poista seuraava rivi
-\avainsanat{diplomi-insinöörin tutkinto\spc diplomityön ohjeet\spc diplomityön rakenne\footnote{Käytä avainsanoina eri sanoja kuin lopputyön otsikossa. Poista tämä alaviite lopputyöstäsi.}}
+%\avainsanat{}
 \begin{thesisabstract}{finnish}
 \tiivistelmametadata
 % Voit myös laittaa tähän version tiivistelmästä, joka sisältää kappalejakoja
 % ja erikoismerkkejä. Sisällön tulisi kuitenkin olla muutoin identtinen
 % metadatassa olevan version kanssa.
+
+Oulun yliopiston tietojärjestelmäkurssin opiskelijat kohtaavat usein vaikeuksia työkalujensa asennuksessa ja joutuvat turvautumaan yksinkertaisiin tekstilähtöihin etsiessään virheitä koodistaan. Tässä opinnäytetyössä esitellään yhtenäisen, konttiteknologiaan perustuvan virheenkorjausalustan suunnittelu ja toteutus Raspberry Pi RP2040- ja RP2350-mikro-ohjaimille. Alusta hyödyntää Docker-konttitekniikkaa, virtuaalikoneita ja verkkopohjaista IDE:tä (code-server) tarjotakseen skaalautuvan ratkaisun, joka takaa toistettavan opetusympäristön, jossa
+ympäristövirheet eliminoidaan.
+
+Tämän työn keskeinen saavutus on Pico-Debug-Dashboardin kehittäminen, joka on räätälöity Visual Studio Code -laajennus, joka yhdistää CMaken, OpenOCD:n ja GDB:n monimutkaisuuden keskitettyyn käyttöliittymään. Alusta tukee myös useita virheenkorjausmenetelmiä mukaan lukien fyysiset laitteistokoettimet ja virtuaaliset ohjelmistokoettimet (pico-debug), sekä räätälöidyn integroidun kotelosuunnittelun, joka sopii alustan modulaarisiin tarpeisiin. Jotta voitiin arvioida alustan tehokkuutta opetuskäytössä Oulun yliopiston tietojärjestelmäkurssilla tehtiin vertaileva analyysi konttitekniikkaan ja virtuaalikoneisiin perustuvien toteutusten välillä.
+
+Arviointi suoritettiin käyttämällä sekä määrällisiä mittareita, kuten käyttöönoton viivettä ja flash-muistin siirtonopeutta, että NASA:n Task Load Index -indeksistä vaikutteita saaneita laadullisia mittareita, joissa keskityttiin aloittelijaystävällisyyteen ja ergonomiaan. Tulokset osoittavat, että konttitekniikka lyhentää merkittävästi ympäristön kylmäkäynnistysaikoja ja tarjoaa erinomaisen laitteistoyhteyden vakauden. Arvioiduista virheenkorjausantureista Second Pico -laitteistototeutus todettiin sopivimmaksi laajamittaiseen käyttöönottoon luokkahuoneissa, koska se tarjoaa tasapainoisen tuen, edullisen hinnan ja kaksisydämisen virheenkorjausominaisuuden.
 \end{thesisabstract}

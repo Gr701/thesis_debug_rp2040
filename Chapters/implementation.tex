@@ -107,7 +107,7 @@ The SEGGER J-Link, specifically the J-Link EDU V11 model, implementation require
     \begin{center}
       \includegraphics[width=0.8\textwidth]{jlink\_connections}
     \end{center}
-    \caption{List of connections from the J-Link to the Pico.}
+    \caption{List of connections from the J-Link to the Pico W. JTAG pinout diagram from OLIMEX ARM-JTAG dongle manual \cite{olimex}. Copyright~\textcopyright~2004, OLIMEX Ltd., All rights reserved.}
     \label{fig:jlink_connect}
 \end{figure}
 
@@ -118,16 +118,17 @@ More severe consequences can occur if power-related pins are connected incorrect
 
 The Segger J-Link EDU probe requires initial firmware configuration and server setup before use. The firmware update is performed using the JLinkConfig utility, after which the JLinkGDBServer application provides the GDB server interface where it acts a bridge between GDB and the hardware. There exists a GUI for this tool, however, through testing, it has proven to be inflexible. In the instances where certain settings or physical connections are incorrect, the GUI will close automatically without giving the user an opportunity to try again. Therefore, for convenience sake, the command line is preferred for its supperior usability and reliability.
 
-\begin{tcolorbox}[
-    colback=black!5,     
-    colframe=black!75,   
-    title=J-Link EDU Command, 
-    arc=0mm,
-    boxrule=0.5pt,
-    left=2mm
+\begin{lstlisting}[
+  language=bash,
+  caption={J-Link EDU Command},
+  label={lst:openocd_init},
+  frame=single,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  mathescape=false
 ]
-\texttt{\$ /opt/SEGGER/JLink/JLinkGDBServer select USB -device RP2040\_M0\_0 -endian little -if SWD -speed 4000 -noir -LocalhostOnly -nologtofile -port 2331 -SWOPort 2332 -TelnetPort 2333}
-\end{tcolorbox}
+$ /opt/SEGGER/JLink/JLinkGDBServer select USB -device RP2040\_M0\_0 -endian little -if SWD -speed 4000 -noir -LocalhostOnly -nologtofile -port 2331 -SWOPort 2332 -TelnetPort 2333
+\end{lstlisting}
 
 The command will print some helpful messages about the process as it goes through the entire checklist of steps. The configuration requires selecting the target device as "RP2040\_M0\_0" and the target interface as "SWD". All remaining settings can be left at their default values. For security purposes, enabling the "Localhost only" option is recommended to restrict GDB server access to local connections only, preventing unauthorised remote access.
 

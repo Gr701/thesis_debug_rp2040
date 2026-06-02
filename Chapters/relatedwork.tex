@@ -12,13 +12,12 @@ The debugging is the integral part of the software development process. Its purp
 
 In this thesis however, we will focus on a more advanced debugging techniques that rely on a debugger, which can pause program execution at user-defined breakpoints. When execution is halted, the developer can inspect the complete program state without modifying the source code. As can be seen in the \figref{fig:breakpoint_features}, this includes examining local and global variable values, processor registers, memory contents, call stacks, and the current execution path. In systems running a Real-Time Operating System (RTOS), the debugger can additionally provide information about active tasks or threads, their states, priorities, stack usage, and scheduling behavior.  The ability to step through code instruction-by-instruction or line-by-line further helps developers understand how program state changes over time and identify the root causes of faults more efficiently than with print-based debugging alone.
 
-TODO Ahmad puts the figure in matching the text above, or change the text to match 
-%\begin{figure}[ht] 
-%    \centering
-%    \includegraphics[width=0.8\textwidth]{file_name}
-%    \caption{Information provided by debugger.}
-%    \label{fig:breakpoint_features}
-%\end{figure}
+\begin{figure}[ht] 
+   \centering
+   \includegraphics[width=0.9\textwidth]{debugger_working}
+   \caption{Information provided by debugger.}
+   \label{fig:breakpoint_features}
+\end{figure}
 
 The debugging process applied to the embedded devices is different, than the one used for the programs running on the host's CPU. That is because the debugger needs to control and therefore reach the processing unit of the microcontroller. Below we will take a look at how the control commands are forwarded from the host environment to the CPU on the microcontroller. In other words, how the debugging pipeline is implemented for the embedded devices and, in particular, Pico family microcontrollers and and Arm processors. The general overview of the strucure can be seen in \figref{fig:general_structure}.
 
@@ -234,13 +233,13 @@ RP2350 chip has a more complicated debug topology depicted in \figref{fig:rp2350
  
 For both chips the implementation is present (\cite{pico_debug} and \cite{pico2_debug} respectively) and will be looked at closer in the part 3 - Implementation of this thesis. In terms of flashing of the firmware this approach is analogous to using the external debugger board, and does not require extra steps or new procedures. 
 
-\subsection{Black Magic Probe}
+% \subsection{Black Magic Probe}
 
-The Black Magic Probe (BMP) is part of an open-source debugging solution, Black Magic Debug (BMD), that implements a GDB server directly in the probe hardware, eliminating the need for intermediate software like OpenOCD. It connects to the host computer via a standard USB interface, appearing as a CDC-ACM device (virtual serial port), which requires no special drivers on Linux or macOS \cite{blackmagic}. Unlike traditional debugging setups where a separate GDB server runs on the host machine, the BMP embeds the GDB Remote Serial Protocol server in its firmware, allowing direct connection from GDB to the probe's serial port \cite{blackmagic}.
+% The Black Magic Probe (BMP) is part of an open-source debugging solution, Black Magic Debug (BMD), that implements a GDB server directly in the probe hardware, eliminating the need for intermediate software like OpenOCD. It connects to the host computer via a standard USB interface, appearing as a CDC-ACM device (virtual serial port), which requires no special drivers on Linux or macOS \cite{blackmagic}. Unlike traditional debugging setups where a separate GDB server runs on the host machine, the BMP embeds the GDB Remote Serial Protocol server in its firmware, allowing direct connection from GDB to the probe's serial port \cite{blackmagic}.
 
-The probe supports both JTAG and SWD protocols for connecting to ARM Cortex-M and Cortex-A based microcontrollers. When connected to a target device, the BMP provides full debugging functionality including hardware-assisted breakpoints (up to 6), watchpoints (up to 4 read, write, or access), memory and register examination, and flash memory programming \cite{blackmagic}. The firmware runs on dedicated Black Magic Probe hardware or can be flashed onto compatible devices such as ST-Link adapters \cite{blackmagic}.
+% The probe supports both JTAG and SWD protocols for connecting to ARM Cortex-M and Cortex-A based microcontrollers. When connected to a target device, the BMP provides full debugging functionality including hardware-assisted breakpoints (up to 6), watchpoints (up to 4 read, write, or access), memory and register examination, and flash memory programming \cite{blackmagic}. The firmware runs on dedicated Black Magic Probe hardware or can be flashed onto compatible devices such as ST-Link adapters \cite{blackmagic}.
 
-The debugging workflow with Black Magic Probe is simplified compared to traditional setups \cite{blackmagic}. After connecting the probe to the host computer, GDB connects directly to the probe's serial port using the \texttt{target extended-remote} command \cite{blackmagic}. The probe automatically handles target detection through commands like \texttt{monitor swdp\_scan}, which identifies connected microcontrollers and reports their type and voltage \cite{blackmagic}. Once attached to a target, all standard GDB commands can be used to control program execution, examine state, and modify memory \cite{blackmagic}. The probe also includes a secondary USB-to-serial adapter, enabling simultaneous debugging and serial communication with the target device \cite{blackmagic}.
+% The debugging workflow with Black Magic Probe is simplified compared to traditional setups \cite{blackmagic}. After connecting the probe to the host computer, GDB connects directly to the probe's serial port using the \texttt{target extended-remote} command \cite{blackmagic}. The probe automatically handles target detection through commands like \texttt{monitor swdp\_scan}, which identifies connected microcontrollers and reports their type and voltage \cite{blackmagic}. Once attached to a target, all standard GDB commands can be used to control program execution, examine state, and modify memory \cite{blackmagic}. The probe also includes a secondary USB-to-serial adapter, enabling simultaneous debugging and serial communication with the target device \cite{blackmagic}.
 
 \subsection{JTAG/SWD SEGGER J-Link}
 
