@@ -1,79 +1,47 @@
-\section{Metrics description}
+ \section{Metrics description}
 
-Since there are several candidates for the implementation of the probe, we will define a set of metrics to choose the best one. Our set will include both quantitative and qualitative metrics, chosen based on the goal of the project, which is to implement a solution used throughout the educational process. While the values of the quantitative metrics will come directly from the tests and measurements, for qualitative metrics each of the team members will decide on a score from 1 to 5 and the average of those will be used in further considerations.
-
-\begin{table}[!ht]
-  \def\arraystretch{1.3}
-  \begin{center}
-    \caption{Comparison Summary of Probe Implementation Candidates}
-    \label{tab:probe_comparison}
-    \begin{tabular}{|l|c|c|c|}
-      \hline
-      \textbf{Metric} & \textbf{Description} \\
-      \hline
-      \hline
-      \multicolumn{4}{|l|}{\textit{Quantitative Metrics}} \\
-      \hline
-      Price of materials & The price of the plastic or other materials used for the casing, which would fit the TKJHAT and the probe together, as well as the price of the additional microcontrollers, boards, and wires used in the design. Since tens of debugger units are required by the course, the price of each one is a significant detail. \\
-      \hline
-      Time to produce & 15 min \\
-      \hline
-      Size of addition (cm) & 5 \\
-      \hline
-      \hline
-      \hline
-      \multicolumn{4}{|l|}{\textit{Qualitative Metrics (Scores 1--5)}} \\
-      \hline
-      Maintained & 5.0 \\
-      \hline
-      Beginner-friendly & 3.3 \\
-      \hline
-      Comfort of use & 4.0 \\
-      \hline
-      \hline
-    \end{tabular}
-    \vspace{6pt}
-  \end{center}
-\end{table}
+Since there are several candidates for the implementation of the probe, one of the results of this work is the comparison between them. To weigh the different approaches we will define a set of metrics to apply to each of them. Our set will include both quantitative and qualitative metrics, chosen based on the goal of the project, which is to implement a solution used throughout the educational process. While the values of the quantitative metrics will come directly from the tests and measurements, for qualitative metrics each of the team members will decide on a score from 1 to 5 according to their experience and the defined edge cases. The average of those will be used in further considerations.
 
 \subsection{Quantitative metrics}
-To objectively evaluate and compare the physical and technical performance of each probe candidate, we established the following seven quantitative metrics:
+
+Quantitative metrics are utilised to assess measurable, objective factors. These metrics are needed to assess the scalability of a solution within the Computer System course setting. They include the following:
+
 \begin{itemize}
-    \item \textbf{Price of the Hardware}: The first metric considered is the price of the hardware. That is, the price of the plastic or other materials used for the casing, which would fit the TKJHAT and the probe together, as well as the price of the additional microcontrollers, boards, and wires used in the design. Since tens of debugger units are required by the course, the price of each one is a significant detail.
+    \item \textbf{Price of the Hardware}: the price of the hardware. That is, the price of the plastic or other materials used for the casing, which would fit the TKJHAT and the probe together, as well as the price of the additional microcontrollers, boards, and wires used in the design. Since tens of debugger units are required by the course, the price of each one is a significant detail.
     
-    \item \textbf{Time to Produce}: Next factor we will consider is the time to produce the probe, which includes the printing time of the case for the given probe and the time for soldering and other assembling activities.   
+    \item \textbf{Time to Produce}: the time to produce the probe, which includes the printing time of the case for the given probe and the time for soldering and other assembling activities.   
     
-    \item \textbf{Physical Size}: The third quantitative metric is the physical size of the final result. That is the size of the casing together with the TKJHAT and the probe. 
+    \item \textbf{Physical Size}: the physical size of the final result. That is the size of the casing together with the TKJHAT and the probe. 
     
-    \item \textbf{Debug Overhead}: We will also consider the virtual size as a separate metric. It can be referred to as the debug overhead metric, and it estimates the load on the CPU, memory, and time consumption added by the debugger. While it might be one of the most crucial mectrics when working on big and complicated projects, it only takes a secondary position in our research, since most of the projects at the entry-level course are quite simple and compact.
+    \item \textbf{Memory Overhead}: the virtual size as a separate metric. Estimates the memory consumed by the debugger setup on the device being debugged. While it might be one of the most crucial mectrics when working on big and complicated projects, it only takes a secondary position in our research, since most of the projects at the entry-level course are quite simple and compact.
     
-    \item \textbf{Slowdown Factor}: Often measured in production debugging, this is the ratio of execution time with the debugger active vs. inactive (e.g., a "10x–100x slowdown" in intensive debugging scenarios).
-    
-    \item \textbf{Memory Access Speed}: The speed at which a debugger reads/writes data to the target system, crucial for embedded processors.
-    
-    \item \textbf{Breakpoint Latency}: Time taken to halt execution when a breakpoint is hit.
 \end{itemize}
 
 \subsection{Qualitative metrics}
 
-Qualitative metrics play a more important role in our project. Among these is how \textbf{well-maintained} the software to be used is: how often it is updated, if at all; how many people are behind it and how reliable it is in the long run. It is important since the outcome of our work is planned to be in use for a long time, about seven years, and it is likely, that there will be new bugs found and changes made in the upstream software.
+Qualitative metrics address the human-centric aspects of the platform. The metrics were chosen to evaluate the educational effectiveness and the sustainability of each implementation, ensuring the chosen platform is both intuitive for beginners and reliable for long-term educational use. Qualitative metrics include:
 
-One of the most crucial criteria is how \textbf{beginner-friendly} the setup and the usage of the probe is, how likely are the people, working with the embedded systems for the first time, to make a mistake, how easy it is to explain the workflow.
+\begin{itemize}
+    \item \textbf{State of Maintenance:} how often software is updated, if at all; how many people are behind it and how reliable it is in the long run. It is important since the outcome of our work is planned to be in use for a long time, about seven years, and it is likely, that there will be new bugs found and changes made in the upstream software. In this metric grade 5 means the frequent updates are present, long-term support is likely to continue and a trustworthy entity is developing the solution. Grade 1 means the absence of updates and an unknown developer. 
 
-The general \textbf{comfort of use} is another metric we will consider. The hardware setup will affect our ratings as well as the response speed. We consider speed here, in the qualitative category, as exact miliseconds are not so important to us as the general feel and the smootheness of the process.
+    \item \textbf{Beginner-friendliness:} one of the most crucial criteria. Estimates how begginer-friendly the setup and the usage of the probe is, how likely are the people, working with the embedded systems for the first time, to make a mistake, how easy it is to explain the workflow. In this metric grade 5 means that solution does not require any configuration by the user and works out of the box with minimal connection needed and a button press. On the other hand, 1 means that there is a complex hardware connecion required, where it is easy to fail, and as complex software installation and configuration needed before the debugging can be started.
 
-As a separate and final metric we will consider the \textbf{limitations} of each approach, which might not show in the rest of the metrics.
+    \item \textbf{Comfort of Use:} this metric estimates the hardware setup as well as the response speed. We consider speed here, in the qualitative category, as exact miliseconds are not so important to us as the general feel and the smootheness of the process. In contrast to beginner-friendliness, here we asume that the developer is quite familiar with the procedure, and we estimate how comfortable and fluent the day-to-day debugging routine could be with each of the solutions. Here grade 5 means that the developer gets the full potential of the debugger with no additional cost software- or hardware-wise. Grade 1 means the debugger software overhead is always in the way of the development and the hardware setup is bulky and has a lot of connections or other possible failure points, which would slow down the programmer further. 
 
-\section{Applying the metrcis}
+\end{itemize}
 
-To identify the optimal solution for the course environment, a systematic framework is established to evaluate all approaches and determine the most suitable methodology. The framework consists of both quantitative and qualitative metrics to ensure a comprehensive and accurate evaluation of the methodologies.
+\section{Applying the metrics}
 
-Quantitative metrics are utilised to assess measurable, objective factors such as cost, manufacturing time, and the performance overhead introduced during the debugging process. These metrics are needed to assess the scalability of a solution within the Computer System course setting. Metrics choosen to evaluate were Price of materials (Euro), Time to produce each unit (minutes and hours), Size of addition (Cm), and Debug Overhead. Debug Overhead is measured using multiple units of measure, including data throughput for flashing, round-trip latency for debugger commands, and total initialization time for the environment.
+\subsection{Clarification for the qualitative scores}
 
-Qualitative metrics address the human-centric aspects of the platform. Subjective metrics considered in this framework are State of Maintanence, Beginner-friendly, and Comfort of use. The metrics were chosen to evaluate the educational effectiveness and the sustainability of each implementation, ensuring the chosen platform is both intuitive for beginners and reliable for long-term educational use.
+\begin{itemize}
+    \item \textbf{State of Maintenance:} the Second Pico and SEGGER J-Link received scores of 5.0 due to their support from established commercial entities and frequent updates. At the same time, pico-debug (Core) was assigned a 2.0 rating, as it relies on a single community maintainer and the RP2040 firmware version is archived and no longer supported.
+    \item \textbf{Beginner-friendliness:} the pico-debug (Second Core) implementation achieved a 5.0 for requiring no external hardware and simple firmware flashing. In contrast, the Second Pico (3.3) and SEGGER J-Link (2.0) were rated lower due to wiring and firmware complexities.
+    \item \textbf{Comfort of Use:} both \textbf{Pico-based} solutions scored 4.0 due to their seamless integration with the custom IDE dashboard and theirs physical size being more optimised for handling, while the SEGGER J-Link scored a 3.0 due to its physical bulk and rigid proprietary software requirements.
 
-While evaluating quantitative metrics is straightforward, as they are derived from objective measurements and empirical data, qualitative metrics introduce a degree of subjectivity that requires a more structured analytical approach. To streamline the NASA Task Load Index (NASA-TLX), our framework's qualitative metrics were quantified on a 1-to-5 scale to evaluate the human-centric aspects of each methodology, with 1 being high aversion and 5 being high affinity. The final score is the average of the subjective assessments of three project team members, ensuring a structured, reliable consensus on factors such as beginner-friendliness and ease of use.
+\end{itemize}
 
+\subsection{Comparison results}
 
 \begin{table}[!ht]
   \def\arraystretch{1.3}
@@ -93,6 +61,9 @@ While evaluating quantitative metrics is straightforward, as they are derived fr
       \hline
       Size of addition (cm) & 5 $\times$ 2 + wires & 0 (Internal) & 10 $\times$ 5 $\times$ 2 + wires \\
       \hline
+      Memory overhead & 0 & 25.6 kB & 0 \\
+      \hline
+
       \textbf{Quantitative Summary} & \textbf{Low Cost} & \textbf{Minimal/Zero} & \textbf{High Cost} \\
       \hline
       \hline
@@ -112,8 +83,3 @@ While evaluating quantitative metrics is straightforward, as they are derived fr
 \end{table}
 \clearpage
 
-\begin{itemize}
-    \item \textbf{State of Maintenance:} Evaluates the frequency of updates and institutional backing. The Second Pico and SEGGER J-Link received scores of 5.0 due to their support from established commercial entities and frequent updates. At the same time, pico-debug (Core) was assigned a 2.0 rating, as it relies on a single community maintainer and the RP2040 firmware version is archived and no longer supported.
-    \item \textbf{Beginner-friendliness:} Measures the initial learning curve and hardware setup process. The pico-debug (Core) implementation achieved a 5.0 for requiring no external hardware and simple firmware flashing. In contrast, the Second Pico (3.3) and SEGGER J-Link (2.0) were rated lower due to wiring and firmware complexities.
-    \item \textbf{Comfort of Use:} Assesses the ergonomics of the daily workflow; both \textbf{Pico-based} solutions scored 4.0 due to their seamless integration with the custom IDE dashboard and theirs physical size being more optimised for handling, while the SEGGER J-Link scored a 3.0 due to its physical bulk and rigid proprietary software requirements.
-\end{itemize}
