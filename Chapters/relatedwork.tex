@@ -10,7 +10,7 @@ Especially Pico family boards became increasingly popular in the education. Davi
 
 The debugging is the integral part of the software development process. Its purpose is to ensure proper functioning and the performance of the software. There are different approaches to debugging, with the simplest one being just printing the program values to the output terminal. While this approach is easy to use and requires no additional tools, it has several limitations. Print statements must be manually inserted and removed, they provide visibility only into information explicitly selected by the programmer, and can alter the timing characteristics of the application. In embedded systems, where applications often interact with hardware peripherals and may contain timing-sensitive code, such modifications can mask or even introduce faults.
 
-In this thesis however, we will focus on a more advanced debugging techniques that rely on a debugger, which can pause program execution at user-defined breakpoints. When execution is halted, the developer can inspect the complete program state without modifying the source code. As can be seen in the \figref{fig:breakpoint_features}, this includes examining local and global variable values, processor registers, memory contents, call stacks, and the current execution path. In systems running a Real-Time Operating System (RTOS), the debugger can additionally provide information about active tasks or threads, their states, priorities, stack usage, and scheduling behavior.  The ability to step through code instruction-by-instruction or line-by-line further helps developers understand how program state changes over time and identify the root causes of faults more efficiently than with print-based debugging alone.
+In this thesis however, we will focus on a more advanced debugging techniques that rely on a debugger, which can pause program execution at user-defined breakpoints. When execution is halted, the developer can inspect the complete program state without modifying the source code. As can be seen in \figref{fig:breakpoint_features}, this includes examining local and global variable values, processor registers, memory contents, call stacks, and the current execution path. In systems running a Real-Time Operating System (RTOS), the debugger can additionally provide information about active tasks or threads, their states, priorities, stack usage, and scheduling behavior.  The ability to step through code instruction-by-instruction or line-by-line further helps developers understand how program state changes over time and identify the root causes of faults more efficiently than with print-based debugging alone.
 
 \begin{figure}[ht] 
    \centering
@@ -227,7 +227,7 @@ RP2350 chip has a more complicated debug topology depicted in \figref{fig:rp2350
     \begin{center}
     \includegraphics*[width=\textwidth]{rp2350\_debug}
     \end{center}
-    \caption{RP2350 debug topology. Reproduced from RP2350 Datasheet \cite{raspberry_rp2350}. Copyright~\textcopyright~2023-2025 Raspberry Pi Ltd.}
+    \caption{RP2350 debug topology. Reproduced from RP2350 Datasheet \cite{raspberry_rp2350}. Copyright~\textcopyright~2023-2025 Raspberry Pi Ltd. under CC-SA license.}
     \label{fig:rp2350_debug}
 \end{figure}
  
@@ -251,7 +251,7 @@ J-Link probes support advanced debugging features including Real Time Transfer (
 
 521287A Introduction to Computer Systems is a degree level course that explains how a computer works as a complete stack, moving from high-level programs down to hardware in a conceptual and beginner-friendly way. It is a foundational course that is essential for prospective students wishing to advance to 521286A Computer Systems where the concepts are delved at a much deeper and more technical level, focusing on how these mechanisms are implemented and how they affect performance and functionality. While separate courses, they share the same course content at first as the two are implemented simultaneously, with students of both courses using the TKJHAT to experiment and derive solutions to complex problems presented to them during the implementation time of the courses.
 
-The TKJHAT itself is an open-source, open-hardware, Hardware Attached on Top (HAT) platform designed for the Raspberry Pi Pico W by members of the Faculty of Information Technology and Electrical Engineering to support IoT and embedded systems education in the University of Oulu through the aforementioned courses. The development of this platform was driven by specific requirements identified through systematic evaluation: affordability (under 60€ per student), customizability to meet evolving teaching needs, easy integration into multiple courses, alignment with industry standards, Real-Time Operating System (RTOS) support, and wireless connectivity capabilities \cite{kelhala:2024}.
+The TKJHAT itself, as seen in \figref{fig:tkjhat}, is an open-source, open-hardware, custom-built Hardware Attached on Top (HAT) platform designed for the Raspberry Pi Pico W by members of the Faculty of Information Technology and Electrical Engineering to support IoT and embedded systems education in the University of Oulu through the aforementioned courses. The development of this platform was driven by specific requirements identified through systematic evaluation: affordability (under 60€ per student), customizability to meet evolving teaching needs, easy integration into multiple courses, alignment with industry standards, Real-Time Operating System (RTOS) support, and wireless connectivity capabilities \cite{kelhala:2024}.
 
 \begin{figure}[ht]
     \begin{center}
@@ -269,7 +269,7 @@ FreeRTOS emerged as the preferred choice due to its simplest API, excellent docu
 
 The development environment utilizes Visual Studio Code with the Cortex-Debug extension and CMake, providing full integration with raw Pico SDK and FreeRTOS APIs while offering simple building, flashing, and debugging capabilities through an intuitive user interface \cite{kelhala:2024}. This setup was chosen over PlatformIO, which, despite offering a complete toolchain, limited access to raw SDK functionality due to its Arduino core foundation \cite{kelhala:2024}.
 
-The peripherals present in the TKJHAT reflect its educational design philosophy of balancing simplicity for beginners while maintaining access to low-level hardware functionality for advanced learners \cite{kelhala:2024} and are interfaced in two different ways: via General-Purpose Input/Output (GPIO) pins and Inter-Integrated Circuit ($\text{I}^2\text{C}$) buses.
+The peripherals present in the TKJHAT reflect its educational design philosophy of balancing simplicity for beginners while maintaining access to low-level hardware functionality for advanced learners \cite{kelhala:2024} and are interfaced in two different ways: via General-Purpose Input/Output (GPIO) pins and Inter-Integrated Circuit ($\text{I}^2\text{C}$) buses as seen in the table below.
 
 \begin{table}[H]
     \resizebox{\textwidth}{!}{\begin{tabular}{|l|}

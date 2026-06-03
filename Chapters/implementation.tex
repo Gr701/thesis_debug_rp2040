@@ -93,7 +93,7 @@ Now the board shows as a CMSIS-DAP probe in the list of devices, and we can proc
 
 \subsection{SEGGER J-link}
 
-\begin{figure}[H]
+\begin{figure}[]
     \begin{center}
       \includegraphics[width=0.48\textwidth]{jlink\_setup}
     \end{center}
@@ -101,20 +101,21 @@ Now the board shows as a CMSIS-DAP probe in the list of devices, and we can proc
     \label{fig:jlink_setup}
 \end{figure}
 
-The SEGGER J-Link, specifically the J-Link EDU V11 model, implementation requires a lot of background setup work before it becomes a viable debugging solution. Since the target device in this case the TKJHAT board that is already attached to a Single Board Computer (SBC) in the form of the Pico W, a direct connection via the debugging pins is possible. Wiring can be difficult without the necessary breakout boards, as loose cables can disrupt debugging operations. This specific implementation utilises male-to-male DuPont wire to bridge the capability gap from the lack of of proper proprietary connectors.
+The SEGGER J-Link, specifically the J-Link EDU V11 model, implementation requires a lot of background setup work before it becomes a viable debugging solution. Since the target device in this case the TKJHAT board that is already attached to a Single Board Computer (SBC) in the form of the Pico W, a direct connection via the debugging pins is possible. Wiring can be difficult without the necessary breakout boards, as loose cables can disrupt debugging operations. This specific implementation, shown in \figref{fig:jlink_setup}, utilises female-to-male DuPont wires to bridge the capability gap from the lack of of proper proprietary connectors.
 
 \begin{figure}[ht]
     \begin{center}
       \includegraphics[width=0.8\textwidth]{jlink\_connections}
     \end{center}
-    \caption{List of connections from the J-Link to the Pico W. JTAG pinout diagram from OLIMEX ARM-JTAG dongle manual \cite{olimex}. Copyright~\textcopyright~2004, OLIMEX Ltd., All rights reserved.}
+    \caption{List of connections from the J-Link to the Pico W. JTAG pinout diagram redrawn and adapted from the OLIMEX ARM-JTAG dongle manual \cite{olimex}. Original source Copyright~\textcopyright~2004,  OLIMEX Ltd., All rights
+    reserved.}
     \label{fig:jlink_connect}
 \end{figure}
 
 
 It is extremely important to correctly wire up this setup. Incorrect connections will most commonly result in a complete failure to establish communication between the SEGGER J-Link EDU V11 and the Pico W. If key signals such as SWDIO, SWCLK, or ground are miswired or not properly connected, the debugger will not be able to detect the target device at all. This typically appears as connection errors in the J-Link software, where the system repeatedly fails to identify or communicate with the microcontroller.
 
-More severe consequences can occur if power-related pins are connected incorrectly. Miswiring voltage lines or shorting power to ground can damage the Pico W, the J-Link device, or both. Even less destructive errors, such as incorrect reference voltage connections, can lead to improper signal levels and unpredictable operation. For this reason, careful verification of all wiring is essential before attempting to use the debugger.
+More severe consequences can occur if power-related pins are connected incorrectly. Miswiring voltage lines or shorting power to ground can damage the Pico W, the J-Link device, or both. Even less destructive errors, such as incorrect reference voltage connections, can lead to improper signal levels and unpredictable operation. For this reason, careful verification of all wiring, illustrated in \figref{fig:jlink_connect}, is essential before attempting to use the debugger.
 
 The Segger J-Link EDU probe requires initial firmware configuration and server setup before use. The firmware update is performed using the JLinkConfig utility, after which the JLinkGDBServer application provides the GDB server interface where it acts a bridge between GDB and the hardware. There exists a GUI for this tool, however, through testing, it has proven to be inflexible. In the instances where certain settings or physical connections are incorrect, the GUI will close automatically without giving the user an opportunity to try again. Therefore, for convenience sake, the command line is preferred for its supperior usability and reliability.
 
@@ -153,7 +154,7 @@ The overarching design philosophy adopted throughout the project placed a strong
     \label{fig:debug_case_1}
 \end{figure}
 
-This philosophy is clearly reflected in the final iteration of the enclosure, particularly in the implementation of a simple inverted dovetail lid mechanism. Earlier versions of the design incorporated a more complex hinge and locking system, which, while functional, introduced additional manufacturing complexity and potential durability concerns. By replacing this mechanism with an inverted dovetail interface, the design achieves secure closure through a purely geometric solution that is both robust and easy to manufacture. This not only reduces the likelihood of mechanical failure but also simplifies assembly and everyday use, aligning with the broader objective of creating a practical and reliable debugging tool for students.
+This philosophy is clearly reflected in the final iteration of the enclosure, particularly in the implementation of a simple inverted dovetail lid mechanism. Earlier versions of the design incorporated a more complex hinge-latch locking system, shown in \figref{fig:debug_case_1}, which while functional, introduced additional manufacturing complexity and potential durability concerns. By replacing this mechanism with an inverted dovetail interface, the design achieves secure closure through a purely geometric solution that is both robust and easy to manufacture. This not only reduces the likelihood of mechanical failure but also simplifies assembly and everyday use, aligning with the broader objective of creating a practical and reliable debugging tool for students. An example of this version, dubbed Version 6, is seen in \figref{fig:debug_case_2}.
 
 \begin{figure}[H]
   \begin{center}
@@ -165,19 +166,19 @@ This philosophy is clearly reflected in the final iteration of the enclosure, pa
 
 The overall cumulative cost of raw materials required for manufacturing represented another significant and non-trivial consideration that was carefully evaluated throughout the iterative design process, given that there existed a clearly identified need to potentially scale the deployment of the debugging platform. After careful evaluation of available manufacturing materials, and due to the favorable combination of affordability characteristics and relative structural durability properties, Polylactic Acid (PLA) thermoplastic filament was selected and designated as the chosen material from which the protective enclosure would be fabricated and produced. The design was additionally and deliberately optimised specifically for ease of manufacturing using commercially available and widely accessible fused deposition modeling (FDM) three-dimensional printing equipment that is commonly present in many professional fabrication facilities, educational institutions, and even home-based maker and fabrication set-ups. 
 
-Through careful iterative optimisation of the design geometry and thoughtful selection of print parameters, the final optimised design iteration achieved a remarkably efficient combined printing time of approximately two hours for the complete assembly and required only 26 grams of PLA filament material for the entire protective casing structure, metrics that clearly indicate and demonstrate a high level of successful optimization with regard to both print settings configuration and manufacturing best practices. The final version of the case also retained the modularity that was envisioned from the start, with it being able to accommodate for all the possible debugging options; from using the available second core present on the SBC to using another SBC to serve as the debugging probe.
+Through careful iterative optimisation of the design geometry and thoughtful selection of print parameters, the final optimised design iteration achieved a remarkably efficient combined printing time of approximately two hours for the complete assembly and required only 26 grams of PLA filament material for the entire protective casing structure, metrics that clearly indicate and demonstrate a high level of successful optimization with regard to both print settings configuration and manufacturing best practices. The final version of the case, shown in \figref{fig:debug_case_3}, also retained the modularity that was envisioned from the start, with it being able to accommodate for all the possible debugging options; from using the available second core present on the SBC to using another SBC to serve as the debugging probe as clearly shown in \figref{fig:debug_case_4}.
 
-\begin{figure}[H]
+\begin{figure}[]
   \begin{center}
-    \includegraphics[width=0.5\textwidth]{final_case}
+    \includegraphics[width=0.45\textwidth]{final_case}
   \end{center}
-  \caption{The final version of the 3D-printed casing with the TKJHAT inside.}
+  \caption{The final version of the 3D-printed casing with the TKJHAT inside. The setup shown is for a second-core debugger.}
   \label{fig:debug_case_3}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[]
   \begin{center}
-    \includegraphics[width=0.5\textwidth]{final_case_second_pico}
+    \includegraphics[width=0.45\textwidth]{final_case_second_pico}
   \end{center}
   \caption{The final version of the 3D-printed casing with wiring set-up for a second pico debugger.}
   \label{fig:debug_case_4}
